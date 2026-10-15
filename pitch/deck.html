@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shotorko — deck preview (10 slides)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siluri:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117; --panel:#151b23; --line:#232c38; --ink:#e9eef5; --dim:#9fb0c3;
+  --amber:#f5b53f; --green:#4fd6a8; --red:#ff4d43;
+  --bangla:"Noto Sans Bengali","Hind Siluri",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#05070a;color:var(--ink);font-family:var(--bangla)}
+body{display:flex;flex-direction:column;overflow:hidden}
+
+.deck{flex:1;display:grid;place-items:center;padding:22px 22px 0}
+.slide{display:none;width:100%;max-width:1180px;aspect-ratio:16/9;background:var(--bg);
+  border:1px solid var(--line);border-radius:18px;padding:38px 46px;overflow:auto;position:relative}
+.slide.on{display:flex;flex-direction:column;gap:16px}
+
+.slide header{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:10px}
+/* the slide's own headline is the big text; this is a running label, so it must not shout */
+.slide header h2{margin:0;font-size:clamp(12px,1.05vw,15px);font-weight:600;letter-spacing:.02em;
+  color:var(--dim);text-transform:uppercase;line-height:1.3}
+.slide header .no{color:var(--amber);font-weight:800;font-size:clamp(15px,1.5vw,20px)}
+.slide header .no i{color:var(--dim);font-style:normal;font-weight:400;font-size:.7em}
+.slide header .timing{margin-left:auto;color:var(--dim);font-size:13px;border:1px solid var(--line);border-radius:99px;padding:2px 10px}
+.slide header .over{display:none;margin-left:auto;color:#241703;background:var(--red);border-radius:99px;
+  padding:2px 10px;font-size:12px;font-weight:700}
+.slide.over header .timing{margin-left:12px}
+.slide.over header .over{display:block}
+
+.body{flex:1;font-size:clamp(14px,1.42vw,20px);line-height:1.5}
+.body p{margin:0 0 .62em}
+.body h2,.body h3,.body h4,.body h5{margin:.1em 0 .35em;line-height:1.22;font-weight:800}
+.body h2{font-size:1.55em;color:var(--amber)}
+.body h3{font-size:1.28em}
+.body h4{font-size:1.1em;color:var(--green)}
+.body b{color:#fff;font-weight:800}
+.body code{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:.86em;color:var(--amber);word-break:break-word}
+.body ul,.body ol{margin:0 0 .62em;padding-left:1.25em}
+.body li{margin:.16em 0}
+.body table{border-collapse:collapse;width:100%;margin:.1em 0 .7em;font-size:.94em}
+.body th,.body td{border-bottom:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.body th{color:var(--dim);font-weight:600;font-size:.86em;text-transform:uppercase;letter-spacing:.04em}
+.body td.k{color:#fff;font-weight:600}
+.body figure{margin:.3em 0 .7em;text-align:center}
+.body figure img{max-height:30vh;max-width:100%;border:1px solid var(--line);border-radius:12px;background:#000}
+.body figcaption{color:var(--dim);font-size:.74em;margin-top:5px}
+
+.notes{display:none;border-top:1px dashed var(--line);padding-top:10px;color:var(--dim);font-size:.8em;line-height:1.45}
+body.notes .slide.on .notes{display:block}
+.notes b{color:var(--amber);display:block;margin-bottom:4px;font-size:.9em}
+
+.bar{display:flex;align-items:center;gap:10px;padding:12px 22px 16px;flex-wrap:wrap}
+.bar button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+  min-width:32px;height:30px;cursor:pointer;font:inherit;font-size:13px}
+.bar button.on{background:var(--amber);color:#241703;border-color:var(--amber);font-weight:800}
+.bar .sp{flex:1}
+.bar .hint{color:var(--dim);font-size:12px}
+.bar .total{color:var(--amber);font-size:12px;font-weight:700}
+
+@media print{
+  html,body{height:auto;overflow:visible;background:#fff}
+  .deck{display:block;padding:0}.bar{display:none}
+  .slide{display:block !important;break-after:page;page-break-after:always;border:0;border-radius:0;
+    width:100%;max-width:none;aspect-ratio:auto;min-height:96vh;padding:12mm 14mm;background:#fff;color:#111}
+  .slide header{border-color:#ccc}.slide header h2,.slide header .no{color:#111}
+  .slide header .no{color:#b26a00}
+  .body{color:#111}.body b,.body td.k{color:#000}.body code{background:#f2f2f2;color:#8a5200;border-color:#ddd}
+  .body th{color:#666}.body td,.body th{border-color:#ddd}
+  .notes{display:block !important;color:#444;border-color:#bbb}
+  .slide header .over{display:none !important}
+  .body figure img{max-height:60mm}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<section class="slide" data-n="1" aria-label="Slide 1">
+  <header><span class="no">1<i>/ 10</i></span><h2>Title</h2><span class="over">doesn't fit</span><span class="timing">15s</span></header>
+  <div class="body"><h2>Shotorko · সতর্ক</h2>
+<p><b>The 90 seconds when a phone scam is actually winnable.</b> AI that warns a grandmother in Bangla, on any phone — before she sends the money.</p>
+<p>[Name] · GP FutureMakers 2026 Concept Round · Prototype inside</p></div>
+  <aside class="notes"><b>Speaker note · 15s</b><p>Shotorko means <i>be alert</i>. One sentence: a scam only works for about ninety seconds, and Shotorko is built to win those ninety seconds on the cheapest phone in Bangladesh. There's a working prototype at the end — I'll show you the link. ---</p></aside>
+</section>
+<section class="slide" data-n="2" aria-label="Slide 2">
+  <header><span class="no">2<i>/ 10</i></span><h2>The problem is not ignorance. It is timing.</h2><span class="over">doesn't fit</span><span class="timing">35s</span></header>
+  <div class="body"><p><b>The script is always the same.</b> "আমি থানার ওসি" — your son was caught with yaba. Pay 30,000 taka now. Don't tell anyone.</p>
+<p><b>Why it works</b></p>
+<ul><li>Fear arrives before verification is possible</li><li>The victim is told to stay silent, so no one can correct them</li><li>Money moves through an agent shop or USSD in under five minutes</li><li>By the time they tell the family, the number is dead</li></ul>
+<p><b>Who absorbs it:</b> people with the least practice judging a call — older parents in district towns, semi-literate users, and anyone whose Bangla is a dialect no product was built for.</p></div>
+  <aside class="notes"><b>Speaker note · 35s</b><p>Everyone knows these calls happen. What gets missed is the mechanism. The scam is not a knowledge problem — the victim is not stupid. It is a timing problem. Fear, urgency and a demand for secrecy arrive together, and that combination shuts down the part of the brain that checks. Our design starts from one question: where in that ninety-second window can a network actually intervene? ---</p></aside>
+</section>
+<section class="slide" data-n="3" aria-label="Slide 3">
+  <header><span class="no">3<i>/ 10</i></span><h2>Why the defences today lose</h2><span class="over">doesn't fit</span><span class="timing">30s</span></header>
+  <div class="body"><table><thead><tr><th>What exists</th><th>Why it fails here</th></tr></thead><tbody><tr><td class="k">Carrier spam filters</td><td>Built for nuisance volume, not for a single persuasive human voice</td></tr><tr><td class="k">Number blocklists</td><td>One new SIM costs ৳200; the script survives, the number doesn't</td></tr><tr><td class="k">Bank / MFS fraud rules</td><td>They see the transfer, never the call that caused it</td></tr><tr><td class="k">Awareness campaigns</td><td>They teach a list of phrases; scammers reword faster than campaigns print</td></tr><tr><td class="k">Smartphone security apps</td><td>Useless on the Tk 800 button phone that is most at risk</td></tr></tbody></table>
+<p><b>The gap:</b> nobody intervenes <b>between</b> the call and the money, in Bangla, on the phone the victim actually owns.</p></div>
+  <aside class="notes"><b>Speaker note · 30s</b><p>Each of these is a real control and each has a reason it doesn't reach this case. The important one: the bank sees a transaction, the operator sees a call, and no one sees the moment where a person is being frightened into pressing buttons. That moment is the product. Also note the last row — the handset most exposed to this is the one no app can protect. ---</p></aside>
+</section>
+<section class="slide" data-n="4" aria-label="Slide 4">
+  <header><span class="no">4<i>/ 10</i></span><h2>What Shotorko does</h2><span class="over">doesn't fit</span><span class="timing">40s</span></header>
+  <div class="body"><p><b>Four moments, one continuous defence.</b></p>
+<p><b>১. Before the call</b> — one Bangla sentence plays in the network, <i>before the phone rings</i>. No app, no install, works on a button phone. <b>২. During the call</b> — on-device listening understands intent. Nothing is recorded, nothing leaves the handset. <b>৩. থামুন — the pause</b> — at the moment money or an OTP is about to move, one question appears, with exactly two buttons. <b>৪. After</b> — the victim speaks what happened in Bangla; Shotorko writes a complaint that can actually be filed, and the report joins a Scam Radar that clusters numbers into networks.</p>
+<p>Plus two layers around the person: <b>আপনজন</b> — a family alert set up in two minutes by QR — and the <b>agent shop</b>, where the shopkeeper gets a warning and one question to ask.</p></div>
+  <aside class="notes"><b>Speaker note · 40s</b><p>That's the whole product. The pre-call and network pieces are Grameenphone-native, which is why this belongs to an operator rather than to an app company. The pause is the heart, and I'll show it live in a moment. The after-piece matters for a different reason: today a victim's story never becomes a usable police or fraud-cell record, so the network never learns. Shotorko turns one spoken sentence into three filings. ---</p></aside>
+</section>
+<section class="slide" data-n="5" aria-label="Slide 5">
+  <header><span class="no">5<i>/ 10</i></span><h2>থামুন: the pause, live</h2><span class="over">doesn't fit</span><span class="timing">45s</span></header>
+  <div class="body"><h3>থামুন</h3>
+<p><b>কেউ কি ফোনে ভয় দেখাচ্ছে বা তাড়াতাড়ি করতে বলছে?</b> <i>Is someone on the phone scaring you or rushing you?</i></p>
+<p><b>[ আসল কিনা যাচাই করুন ]</b> — calls 999 or the official helpline <b>[ পরিবারকে ফোন দিন ]</b> — calls the trusted family member</p>
+<p><i>আমি জানি, পাঠিয়ে দিন — respected, and reported to the radar</i></p>
+<p><b>Shotorko never blocks. The user always keeps the last button.</b></p>
+<figure><img src="../dev/shots/thamun.png" alt="The pause on the deployed prototype, captured from abukawser.xyz"><figcaption>The pause on the deployed prototype, captured from abukawser.xyz</figcaption></figure></div>
+  <aside class="notes"><b>Speaker note · 45s</b><p>This is the screen. Notice what it does <i>not</i> do. It does not block the call. It does not say 'you are being scammed' — we may be wrong, and when we're wrong we must not have cost someone a real transaction. It asks one question that a frightened person can answer honestly, and gives two exits, both of which are a phone call to a human. And there is a third button: 'I know, send it anyway' — which is honoured, and which teaches the model. On a feature phone the same pause is a voice prompt with two keys. ---</p></aside>
+</section>
+<section class="slide" data-n="6" aria-label="Slide 6">
+  <header><span class="no">6<i>/ 10</i></span><h2>The AI: intent, not a word list</h2><span class="over">doesn't fit</span><span class="timing">45s</span></header>
+  <div class="body"><p><b>A blocklist cannot win.</b> Scammers reword; a blocklist chases.</p>
+<p>The model reads <b>eight signals</b> and <b>the situation around them</b>: <code>authority · leverage · urgency · secrecy · credential · payment · reward · install</code> × <code>unknown caller · call in progress · first-time receiver · unusual amount · late night</code></p>
+<p><b>The same words, different risk</b></p>
+<table class="plain"><tbody><tr><td class="k">"টাকাটা পাঠিয়ে দিও" from a saved contact at noon</td><td>quiet</td></tr><tr><td class="k">"টাকাটা পাঠিয়ে দিও, কাউকে বলো না" from a new number mid-call</td><td><b>pause</b></td></tr></tbody></table>
+<p><b>Decided on-device, in Bangla, Banglish and dialect spelling.</b> Small enough to run on a cheap Android handset. No audio stored, no audio uploaded. A hosted model handles only the generative part — turning a spoken story into a written complaint.</p>
+<p><b>Prototype evidence:</b> 69 backend checks pass offline · 5 reworded scam families all classified · 10 benign sentences, <b>0 false pauses</b> in friendly context and 1 with every hostile flag forced on · threshold 50/100, and the pause additionally requires consent <i>and</i> an actual ask.</p>
+<figure><img src="../dev/shots/console.png" alt="The free-play console with a real verdict in it"><figcaption>The free-play console with a real verdict in it</figcaption></figure></div>
+  <aside class="notes"><b>Speaker note · 45s</b><p>The technical claim I want you to test is this: the classifier does not look for the word 'OTP'. It looks for pressure — someone claiming authority, someone mentioning your child, someone rushing you, someone telling you to stay quiet, and then someone asking for money or a code. Any one of those is normal conversation. The combination is the signature, and rewording doesn't escape it because the signals are semantic. The reason it has to be on-device is not privacy alone — it's that a rural handset on 2G cannot round-trip to a cloud model inside the pause window. The prototype on the last slide runs this real classifier in your browser. ---</p></aside>
+</section>
+<section class="slide" data-n="7" aria-label="Slide 7">
+  <header><span class="no">7<i>/ 10</i></span><h2>Why Grameenphone can build what an app company cannot</h2><span class="over">doesn't fit</span><span class="timing">35s</span></header>
+  <div class="body"><p><b>The moat is the network.</b></p>
+<table><thead><tr><th>Capability</th><th>Where it lives</th></tr></thead><tbody><tr><td class="k">Play a Bangla warning <b>before the ring</b></td><td>Network announcement injection — no handset permission needed</td></tr><tr><td class="k">Warn on a <b>Tk 800 button phone</b></td><td>Happens in the network, so the device is irrelevant</td></tr><tr><td class="k">Caller reputation at launch</td><td>GP's own call records: new SIM, fan-out pattern, report history</td></tr><tr><td class="k">Stop the <i>forwarding</i> scam</td><td>USSD gating on <code>*21</code> — GP-side, not app-side</td></tr><tr><td class="k">The agent-shop checkpoint</td><td>Inside the MFS agent app GP already operates</td></tr><tr><td class="k">Close the loop</td><td>GP fraud cell already receives these complaints</td></tr></tbody></table>
+<p><b>Honest engineering constraints we designed around:</b> Android cannot read USSD responses, so the on-device trigger is an AccessibilityService over the dialer and payment apps — or, stronger, operator-side gating. Live-call Bangla recognition on the handset is the hardest single piece in the plan and is where we'd start the R&amp;D clock.</p></div>
+  <aside class="notes"><b>Speaker note · 35s</b><p>An app company can only protect the smartphone it was told to protect. Grameenphone sits where the call, the SIM, the USSD session and the agent network all already are. That's why the same product reaches a feature phone and a smartphone without asking anyone to install anything. We've also listed what we can't do — because the honest version of this plan is stronger, and the constraints are all solvable inside the operator. ---</p></aside>
+</section>
+<section class="slide" data-n="8" aria-label="Slide 8">
+  <header><span class="no">8<i>/ 10</i></span><h2>Impact, and how it scales</h2><span class="over">doesn't fit</span><span class="timing">35s</span></header>
+  <div class="body"><p><b>Direct impact</b></p>
+<ul><li>Money saved stays with the person least able to lose it — a 30,000 taka loss is a year, not a number</li><li>Every intervened call becomes a structured report instead of a family argument</li><li>Trust in digital finance rises, which is GP's own MFS float</li></ul>
+<p><b>Prototype dashboard (DEMO DATA — simulated, not a field trial)</b> 10,000 protected users · 1,284 scam attempts · 796 stopped · <b>62% interruption rate</b> 412 pauses fired · 168 family alerts · 97 agent-shop warnings · <b>41s average pause</b> 31 false alarms, counted on purpose — "ঠিক ছিল" feedback on every warning</p>
+<p><b>Scale path</b></p>
+<ol><li>GP-only pilot: reputation + pre-call announcement + radar, one division, 90 days</li><li>Android app for the on-device pause where handsets allow it</li><li>Any operator via a shared report format — the fraud scripts are national, not per-network</li><li>Public channel: police 999 and BTRC get the clustered network view, not raw complaints</li></ol></div>
+  <aside class="notes"><b>Speaker note · 35s</b><p>I want to be precise about that dashboard: it's the prototype's own demo data, not results from users. The number I'd defend is the 41-second average pause — because that's not a revenue metric, it's the measurement of whether we interrupted the fear long enough for a second human to enter the conversation. And false alarms are counted deliberately. A safety product that doesn't measure its own wrongness will be switched off within a month. ---</p></aside>
+</section>
+<section class="slide" data-n="9" aria-label="Slide 9">
+  <header><span class="no">9<i>/ 10</i></span><h2>What we need, and the first 90 days</h2><span class="over">doesn't fit</span><span class="timing">25s</span></header>
+  <div class="body"><p><b>Weeks 1–4 — prove the classifier on real language</b> Collect 2,000 real scam call recordings with consent from GP's fraud cell + police complaints. Fine-tune the small Bangla intent model. Publish a false-positive rate, not just a recall.</p>
+<p><b>Weeks 5–8 — network slice, one district</b> Caller reputation + pre-call Bangla announcement + a 999 helpline handoff. Feature-phone path only, so the pilot reaches the actual at-risk group. Target: 5,000 users, opt-in.</p>
+<p><b>Weeks 9–12 — measure, then decide</b> Interruption rate, money preserved, false-alarm rate, complaint-to-filing conversion.</p>
+<p><b>What we're asking GP for</b></p>
+<ol><li>Access to anonymised fraud-call CDR patterns and complaint text for training</li><li>A network-side announcement test slot and one USSD gating experiment</li><li>Introductions to the GP fraud cell and one MFS agent-network region</li><li>A pilot district and 90 days</li></ol></div>
+  <aside class="notes"><b>Speaker note · 25s</b><p>This is deliberately narrow. The first four weeks are not building a product, they're getting permission to be honest about the model — we cannot claim a Bangla scam classifier without real Bangla scam speech, and that data sits in GP's fraud cell. If the classifier's false-positive rate is bad after week four, the right decision is to ship the pre-call warning and the radar alone, which still need no handset at all. ---</p></aside>
+</section>
+<section class="slide" data-n="10" aria-label="Slide 10">
+  <header><span class="no">10<i>/ 10</i></span><h2>Try it on your phone</h2><span class="over">doesn't fit</span><span class="timing">25s</span></header>
+  <div class="body"><h3>সতর্ক থাকুন। পরিবারকে জানান।</h3>
+<p><i>Stay alert. Tell the family.</i></p>
+<p><b>Live prototype — no login, no install, works on a phone</b> <b>QR →</b> <code>https://abukawser.xyz</code></p>
+<figure><img src="qr-abukawser.png" alt="QR to the live prototype"><figcaption>QR to the live prototype</figcaption></figure>
+<p>Nine screens, the whole journey: pre-call warning, live call listening, the থামুন pause, the family circle, the agent checkpoint, spoken report → filed complaint, and the Scam Radar.</p>
+<p>On the site, press <b>"▶ Play the story"</b> — it runs the whole journey in under a minute. Then open <b>"নিজে যাচাই"</b> and type any scam line you've ever received, in Bangla or in Banglish. Two classifiers answer: the <b>on-device</b> one, which needs no network at all and is what ships first, and — flip <b>"Live agent"</b> — a hosted one making a real model call.</p></div>
+  <aside class="notes"><b>Speaker note · 25s</b><p>Everything you saw on the pause screen is running in that page. The on-device engine answers with no network whatsoever, and that is the version phase one ships. Flip the <b>Live agent</b> switch and the same screen makes a real hosted model call instead: on the থামুন transcript it came back risk 95, five intent signals, ভুয়া পুলিশ, and it paused; on family talk and a recharge SMS it came back zero and stayed quiet. The number reputations and the radar are demo data, and the page says so on every screen. Nothing in the classifier is a mock — type into it. Thank you. --- ---</p></aside>
+</section>
+</div>
+<div class="bar">
+  <button data-step="-1">←</button><button data-step="1">→</button>
+  <button data-go="1" title="Title">1</button><button data-go="2" title="The problem is not ignorance. It is timing.">2</button><button data-go="3" title="Why the defences today lose">3</button><button data-go="4" title="What Shotorko does">4</button><button data-go="5" title="থামুন: the pause, live">5</button><button data-go="6" title="The AI: intent, not a word list">6</button><button data-go="7" title="Why Grameenphone can build what an app company cannot">7</button><button data-go="8" title="Impact, and how it scales">8</button><button data-go="9" title="What we need, and the first 90 days">9</button><button data-go="10" title="Try it on your phone">10</button>
+  <span class="sp"></span>
+  <span class="hint">← → space · <b>N</b> notes · <b>F</b> fullscreen · Ctrl-P prints 10 pages</span>
+  <span class="total">notes 330s ≈ 5.5 min</span>
+  <button id="toggle-notes">notes</button>
+</div>
+<script>
+const slides=[...document.querySelectorAll(".slide")];
+const tabs=[...document.querySelectorAll("[data-go]")];
+let i=0;
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle("on",k===i));
+  tabs.forEach((t,k)=>t.classList.toggle("on",k===i));
+  slides[i].scrollTop=0;
+  fit(slides[i]);
+  location.hash=i+1;
+}
+/* the preview's job is to tell you what will not fit on a projector at this size */
+function fit(s){
+  const px = s.scrollHeight - s.clientHeight;
+  const over = px > 6;
+  s.classList.toggle("over", over);
+  s.querySelector(".over").textContent = over
+    ? "runs over by " + Math.round(px / s.clientHeight * 100) + "%"
+    : "";
+}
+addEventListener("resize",()=>fit(slides[i]));
+addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight"||e.key===" "||e.key==="PageDown"){e.preventDefault();show(i+1);}
+  else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();show(i-1);}
+  else if(e.key==="Home"){show(0);} else if(e.key==="End"){show(slides.length-1);}
+  else if(e.key==="n"||e.key==="N"){document.body.classList.toggle("notes");}
+  else if(e.key==="f"||e.key==="F"){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+});
+document.querySelector(".bar").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.dataset.step) show(i+Number(b.dataset.step));
+  else if(b.dataset.go) show(Number(b.dataset.go)-1);
+  else if(b.id==="toggle-notes") document.body.classList.toggle("notes");
+});
+document.getElementById("deck").addEventListener("click",e=>{
+  if(e.target.closest("a")||e.target.closest("img")) return;
+  show(i + (e.clientX > innerWidth*0.6 ? 1 : e.clientX < innerWidth*0.4 ? -1 : 0));
+});
+const fromHash=Number((location.hash||"").slice(1));
+show(Number.isFinite(fromHash)&&fromHash>0?fromHash-1:0);
+</script>
+</body></html>

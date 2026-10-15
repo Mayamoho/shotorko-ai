@@ -1,0 +1,14 @@
+.vercel
+.env*
+
+# Machine-local, or regenerable from what is committed. None of it is the project.
+# chromium profile: cache and cookies from the screenshot runs
+dev/.shoot-profile/
+# intermediate JPEGs, regenerable from clip/shotorko-story.mp4
+dev/clip/frames/
+# where render-pptx.py redraws the deck to check its layout
+.deckcheck/
+# per-person tool approvals
+.qoder/settings.local.json
+# cloud binding + a duplicated base64 index.html; does not transfer between hosts
+*.qoder.site

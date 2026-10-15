@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shotorko (সতর্ক) — AI that stops scams at the moment of fear</title>
+<meta name="description" content="Shotorko interactive prototype: a Bangla voice-based AI safety service that interrupts a phone scam at the moment of fear. Working model of the pause, the family alert, the agent warning and Scam Radar.">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="Shotorko (সতর্ক) — AI that stops scams at the moment of fear">
+<meta property="og:description" content="Interactive prototype: before the call, during the call, before you act, and after. Bangla first, works on any operator, launch partner Grameenphone.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siluri:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23f5b53f'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' font-family='sans-serif' font-weight='700' fill='%23241703'%3E%E0%6B6%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark">স</div>
+      <div>
+        <h1>Shotorko <span style="color:var(--amber)">(সতর্ক)</span> — লাইভ প্রোটোটাইপ</h1>
+        <div class="tag" id="brand-tag">AI that stops scams at the moment of fear</div>
+      </div>
+      <div class="spacer"></div>
+      <span class="pill" id="engine-badge">On-device engine</span>
+      <span class="pill demo">Prototype · demo data</span>
+    </div>
+    <nav class="modules" id="tabs" role="tablist" aria-label="Shotorko modules"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="stage" id="stage">
+
+    <section class="devices" id="devices" aria-label="Device mockups">
+      <div>
+        <div class="phone" id="ammu-device">
+          <div class="notch"></div>
+          <div class="screen" id="ammu-screen"></div>
+        </div>
+        <p class="device-label">আম্মুর ফোন · Ammu's smartphone</p>
+      </div>
+
+      <div id="basic-device">
+        <div class="phone basic">
+          <div class="screen" id="basic-screen"></div>
+        </div>
+        <p class="device-label">আম্মুর পুরোনো বটন ফোন · no app, no smartphone</p>
+      </div>
+
+      <div id="son-device">
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen" id="son-screen"></div>
+        </div>
+        <p class="device-label">রাকিবের ফোন · Apon Jon</p>
+      </div>
+    </section>
+
+    <aside class="rail" id="rail" aria-label="Presenter notes"></aside>
+  </div>
+
+  <div class="block" style="margin-top:6px">
+    <div class="transport">
+      <button class="tbtn primary" id="run-btn">▶ Play the story</button>
+      <button class="tbtn" id="reset-btn">⟲ Reset</button>
+      <button class="tbtn" id="sound-btn">🔊 Sound</button>
+      <span class="pill" id="step-label">Shotorko app</span>
+      <span id="engine-switch" class="hide" style="display:flex;gap:6px;align-items:center">
+        <button class="tbtn" id="engine-local">On-device</button>
+        <button class="tbtn" id="engine-live">Live agent</button>
+      </span>
+      <span class="note">keyboard: <b>space</b> play/stop · <b>← →</b> scene</span>
+    </div>
+    <div class="note hide" id="caption" style="margin-top:10px"></div>
+  </div>
+
+  <footer>
+    <div class="grid">
+      <div><b>What is real in this prototype</b><br>
+        The classifier, the pause decision and the complaint writer run in your browser. Bangla and Banglish input is understood the same way the production model is designed to work: intent, not a word list.</div>
+      <div><b>What is simulated</b><br>
+        Number reputation, live call audio, USSD and in-app triggers, the agent-shop feed and Scam Radar records are demo data. Those are the parts that need Grameenphone's network and an MFS partner.</div>
+      <div><b>Product rules this demo keeps</b><br>
+        Warn, never block. Quiet when nothing is wrong. One question at a time. Nothing recorded, nothing uploaded. The user always keeps the last button.</div>
+      <div><b>Shotorko</b><br>
+        GP FutureMakers 2026 concept pitch prototype. Launch partner Grameenphone; standalone app works on every operator.</div>
+    </div>
+  </footer>
+</main>
+
+<script src="assets/data.js"></script>
+<script src="assets/engine.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

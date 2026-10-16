@@ -204,7 +204,7 @@ functions/               the same contract as a Qoder Sites Function (Cloud Agen
   index.ts               Deno.serve(handler)
 vercel.json              static output web/, rewrite /functions/v1/app/* -> /api/app/*
 dev/                     checks, batteries, capture and deck tooling (see below)
-pitch/                   deck source, browsable HTML, the .pptx, the QR
+pitch/                   deck source, HTML, the .pptx, presenter brief, the QR
 Shotorko_Video_Pitch.mp4 the recorded walkthrough
 ```
 
@@ -260,6 +260,7 @@ runs return HTTP 429; those are a quota artifact and must never be quoted as a c
 node dev/build-deck.mjs        # pitch/deck-and-qa.md -> pitch/deck.html (browsable, 13 pages)
 python3 dev/build-pptx.py      # -> pitch/Shotorko-GP-FutureMakers-2026.pptx (10 slides + 3 appendix)
 python3 dev/render-pptx.py     # re-renders the .pptx with PIL to verify layout
+python3 dev/build-brief.py     # -> pitch/Shotorko-Presenter-Brief.docx (the studying document)
 ```
 
 `pitch/deck-and-qa.md` is the single source of truth: ten projector slides, three appendix slides,
@@ -267,13 +268,15 @@ their speaker notes and a 23-question Q&A bank. `dev/build-deck.mjs` generates t
 entirely from it. The .pptx deliberately ships with **no speaker notes** — nothing in a notes pane
 is spoken text, so nothing can leak into a PDF export or onto a projector. `dev/build-pptx.py` writes
 only the hand-condensed projector cut; the sentences and the Q&A number to reach for stay in the
-markdown, for the presenter to study separately.
+markdown, for the presenter to study separately. `dev/build-brief.py` assembles that separate study
+document — `pitch/Shotorko-Presenter-Brief.docx` — by reading the engine source for the numbers, the
+built .pptx for what is actually on each slide, and this markdown for the sentences to say.
 
 The rule the deck is written to is **a slide carries keywords, the speaker note carries the
 sentence**. Business and technology are balanced on purpose: 4, 8 and 9 are the market, the business
 model and the sizing; 5, 6 and 7 are the product and the AI; 1, 2, 3 and 10 are the problem, the
 competition and the close. Appendix A1 is every source, A2 is the sensitivity analysis behind the
-revenue case, A3 is the one-line answer sheet for a market-focused Q&A.
+revenue case, A3 reframes each question a judge is likely to ask as the concern behind it.
 
 `dev/render-pptx.py` exists because PowerPoint is not available here: it redraws the actual .pptx at
 128 px/inch with metrically close fonts and reports off-slide shapes, text that will not fit its box,

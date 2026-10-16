@@ -407,7 +407,7 @@ band(s, 6.32, [("Missing:  ", dict(size=18, color=AMBER, bold=True)),
 # 4 ─────────────────────────────────────────────────────────── Money at risk
 s = slide_shell(prs, "THE MARKET THE MONEY IS IN", 4)
 title(s, [("The money is already digital.", dict(size=27, color=TEXT, bold=True))])
-kicker(s, ML, 2.3, "MOBILE FINANCIAL SERVICES — BANGLADESH BANK, JULY 2026  ·  SUBSCRIBERS — BTRC, AUGUST 2026")
+kicker(s, ML, 2.3, "MOBILE FINANCIAL SERVICES — BANGLADESH BANK, TABLES 9 AND 8  ·  SUBSCRIBERS — BTRC, AUGUST 2026")
 cw5, ch5, g5 = (CW - 4 * 0.2) / 5, 1.42, 0.2
 for i, (big, lab, sub, col, bsize) in enumerate([
     ("Tk 2.17T", "MFS value / month", "", ALERT, 27),
@@ -575,7 +575,7 @@ for i, (head, body) in enumerate([
     ("Phase 3 · 18 months +", "a shared report standard · other operators · licensed to MFS and BTRC"),
 ]):
     card(s, ML + i * (c9 + 0.24), 4.42, c9, 1.34, head, body, col=AMBER, head_size=14)
-source(s, 5.96, "Denominators: BTRC subscribers (Aug 2026), Bangladesh Bank MFS (Jul 2026). The Tk 20 price "
+source(s, 5.96, "Denominators: BTRC subscribers (Aug 2026), Bangladesh Bank MFS Tables 9 and 8. The Tk 20 price "
                 "and the 1% attach rate are our assumptions, not a surveyed willingness to pay.", h=0.42)
 band(s, 6.36, [("Entry wedge:  ", dict(size=14, color=AMBER, bold=True)),
                ("the pre-call network warning reaches every handset GP already serves — no install, no upgrade",

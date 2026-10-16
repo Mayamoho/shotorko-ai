@@ -191,7 +191,7 @@ on-device engine only, no hosted classifier.
 
 > **TAM · SAM · SOM**
 >
-> | **Tk 45.9B** TAM · every mobile subscriber — 191.09M × Tk 20 × 12, calculated | **Tk 20.9B** SAM · Grameenphone's base — 87.20M × Tk 20 × 12, calculated | **Tk 209M** SOM · year one — 1% attach, Truecaller converts 0.75% |
+> | **Tk 45.9B** TAM · every mobile subscriber — 191.09M × Tk 20 × 12, calculated | **Tk 20.9B** SAM · Grameenphone's base — 87.20M × Tk 20 × 12, calculated | **Tk 209M** SOM · year one — 1% attach, Truecaller converts 0.75% globally |
 >
 > GO-TO-MARKET
 > **Phase 1 · 0–6 months** — one district, 5,000 opt-in, GP fraud-cell audio, the network warning first
@@ -218,7 +218,7 @@ on-device engine only, no hosted classifier.
 > — trust in digital money stays with Grameenphone
 >
 > WHAT WE ASK GP FOR — 1 fraud-call audio and CDR patterns, anonymised · 2 one network announcement slot ·
-> 3 one USSD gating test on *21 · 4 one pilot district, 90 days
+> 3 one divert-gating test: ##002# erasure, *#21# status · 4 one pilot district, 90 days
 >
 > **[QR]** **abukawser.xyz** — no login, no install, works on a phone
 >
@@ -239,7 +239,7 @@ on-device engine only, no hosted classifier.
 > | Tk 2.17T · Tk 182.7B · 258.7M | Bangladesh Bank, MFS statistics: transactions table 9, accounts table 8, 2026 — bb.org.bd/econdata/fin_digitalfstat |
 > | 191.09M · 87.20M | BTRC, mobile subscribers by operator, August 2026 — btrc.gov.bd/pages/static-pages/6922dda8933eb65569e15c3d |
 > | 122.71M on 4G · 69.18% mobile-internet penetration | BTRC, teledensity and penetration, August 2026 — btrc.gov.bd/pages/static-pages/teledensity-penetration-8ecc0e-6922e009933eb65569e2524c |
-> | 4M+ subscribers · 0.75% conversion | Truecaller AB, 10 March 2026 — news.cision.com/truecaller-ab/r/truecaller-surpasses-4-million-premium-subscribers,c4318816 |
+> | 4M+ paying subscribers · 0.75% conversion, global | Truecaller AB, 10 March 2026 (global, Q4 2025 figures) — corporate.truecaller.com/newsroom/press-release/truecaller-surpasses-4-million-premium-subscribers |
 > | USD 3.99 a month | Verizon Call Filter Plus — verizon.com/support/call-filter-faqs |
 > | USD 3.5B lost to imposter scams | US Federal Trade Commission, 15 June 2026 — ftc.gov/news-events/news/press-releases/2026/06/ftc-data-show-people-reported-losing-3-point-5-billion-imposter-scams-2025 |
 > | Tk 45.9B · 20.9B · 209M | calculated by us from the tables above; the Tk 20 price and 1% attach rate are our own assumptions |
@@ -309,7 +309,7 @@ on-device engine only, no hosted classifier.
 **2. How do you stop false positives? Warning someone during their son's real call to ask for money is a disaster.**
 "Three gates. First, the pause needs an actual ask — payment, a code, an install, or call forwarding. Words alone don't fire it. Second, the situation multiplies the score: a saved caller, daytime, familiar amount stays quiet. Third, the threshold is deliberately conservative, and the product is allowed to be wrong quietly — it warns, it never blocks, so a false positive costs one screen, not a broken transaction.
 
-I measured it rather than hoping: ten ordinary sentences — a son home from school, a class fee, borrowing from a brother, a delivery, a recharge SMS, a doctor's bill, a wedding, a neighbour's advance, a Banglish rickshaw fare, and a child asking her mother not to tell her father — run through the classifier twice, once with friendly context and once with every hostile flag forced on. Friendly context: **zero pauses out of ten**, the worst one scoring 32 against a threshold of 50. Every hostile flag on: **one pause in ten**, and it was the last sentence — 'tell abbu nothing, I need 3000 taka' — which under 'unknown caller, mid-call, unusual amount, 2am' is the definition of the attack, so I count it as correct behaviour with a false alarm attached. The five scam scripts as controls paused four. The fifth was a bare `*21` instruction with no money, no code and no pressure: it stayed quiet on purpose, because the pause is not how we stop forwarding — that's the network-side gating on Appendix A3. And we ship a 'ঠিক ছিল' button on every warning so the false-alarm count is a live number, not a hope."
+I measured it rather than hoping: ten ordinary sentences — a son home from school, a class fee, borrowing from a brother, a delivery, a recharge SMS, a doctor's bill, a wedding, a neighbour's advance, a Banglish rickshaw fare, and a child asking her mother not to tell her father — run through the classifier twice, once with friendly context and once with every hostile flag forced on. Friendly context: **zero pauses out of ten**, the worst one scoring 32 against a threshold of 50. Every hostile flag on: **one pause in ten**, and it was the last sentence — 'tell abbu nothing, I need 3000 taka' — which under 'unknown caller, mid-call, unusual amount, 2am' is the definition of the attack, so I count it as correct behaviour with a false alarm attached. The five scam scripts as controls paused four. The fifth was a bare `*21` instruction with no money, no code and no pressure: it stayed quiet on purpose, because the pause is not how we stop forwarding — that's the network-side gating on the ask slide. And we ship a 'ঠিক ছিল' button on every warning so the false-alarm count is a live number, not a hope."
 
 **3. Your 'model' in the prototype is a scoring function, not a neural network. Isn't that overclaiming?**
 "The prototype's default engine is a deterministic implementation of the signal model — on purpose, because it's the part that must be inspectable and it runs instantly offline. The same page can flip to a hosted classifier over the identical output contract, and that's the point: the schema, the gates and the labels are the design work, and any model that fills that contract drops in without touching the product. What I'd need is the training corpus, which is exactly item one on the ask slide."

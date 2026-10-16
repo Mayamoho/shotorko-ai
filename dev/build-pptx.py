@@ -550,7 +550,7 @@ for i, (head, body, col) in enumerate([
 ]):
     card(s, ML + i * (cw3 + 0.24), 3.78, cw3, 1.42, head, body, col=col, top_bar=True)
 kicker(s, ML, 5.44, "PROOF THAT PEOPLE PAY FOR THIS")
-text(s, ML, 5.76, CW, 0.32, [dash("Truecaller: 4M+ paying subscribers, 0.75% of free users convert (Mar 2026)",
+text(s, ML, 5.76, CW, 0.32, [dash("Truecaller: 4M+ paying subscribers, 0.75% convert — global, not Bangladeshi",
                                   13.5, TEXT)])
 text(s, ML, 6.1, CW, 0.32, [dash("Verizon Call Filter Plus: USD 3.99 a month — and it only blocks numbers",
                                  13.5, TEXT)])
@@ -596,7 +596,7 @@ kicker(s, ML, 4.4, "WHAT WE ASK GP FOR")
 for j, ask in enumerate([
     "fraud-call audio and CDR patterns, anonymised",
     "one network announcement slot",
-    "one USSD gating test on *21",
+    "one divert-gating test: ##002# erasure, *#21# status",
     "one pilot district · 90 days",
 ]):
     text(s, ML, 4.7 + j * 0.36, 8.9, 0.34, [dash(ask, 13.5, TEXT, mark=f"{j + 1}.", mark_col=CALM)])
@@ -632,8 +632,8 @@ rows_table(s, ML, 2.3, CW, [
      "BTRC, teledensity and penetration, August 2026 — "
      "btrc.gov.bd/pages/static-pages/teledensity-penetration-8ecc0e-6922e009933eb65569e2524c"),
     ("4M+ subscribers · 0.75% conversion",
-     "Truecaller AB, 10 March 2026 — "
-     "news.cision.com/truecaller-ab/r/truecaller-surpasses-4-million-premium-subscribers,c4318816"),
+     "Truecaller AB, 10 March 2026 (global, Q4 2025 figures) — "
+     "corporate.truecaller.com/newsroom/press-release/truecaller-surpasses-4-million-premium-subscribers"),
     ("USD 3.99 a month",
      "Verizon Call Filter Plus — verizon.com/support/call-filter-faqs"),
     ("USD 3.5B lost to imposter scams",

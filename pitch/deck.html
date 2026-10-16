@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shotorko — deck preview (10 slides)</title>
+<title>Shotorko — deck preview (13 slides)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siluri:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;800&display=swap" rel="stylesheet">
@@ -28,6 +28,7 @@ body{display:flex;flex-direction:column;overflow:hidden}
   color:var(--dim);text-transform:uppercase;line-height:1.3}
 .slide header .no{color:var(--amber);font-weight:800;font-size:clamp(15px,1.5vw,20px)}
 .slide header .no i{color:var(--dim);font-style:normal;font-weight:400;font-size:.7em}
+.slide.apx header h2::before{content:"appendix · ";color:var(--amber);font-weight:800}
 .slide header .timing{margin-left:auto;color:var(--dim);font-size:13px;border:1px solid var(--line);border-radius:99px;padding:2px 10px}
 .slide header .over{display:none;margin-left:auto;color:#241703;background:var(--red);border-radius:99px;
   padding:2px 10px;font-size:12px;font-weight:700}
@@ -83,95 +84,113 @@ body.notes .slide.on .notes{display:block}
 <div class="deck" id="deck">
 <section class="slide" data-n="1" aria-label="Slide 1">
   <header><span class="no">1<i>/ 10</i></span><h2>Title</h2><span class="over">doesn't fit</span><span class="timing">15s</span></header>
-  <div class="body"><h2>Shotorko · সতর্ক</h2>
-<p><b>The 90 seconds when a phone scam is actually winnable.</b> AI that warns a grandmother in Bangla, on any phone — before she sends the money.</p>
-<p>[Name] · GP FutureMakers 2026 Concept Round · Prototype inside</p></div>
-  <aside class="notes"><b>Speaker note · 15s</b><p>Shotorko means <i>be alert</i>. One sentence: a scam only works for about ninety seconds, and Shotorko is built to win those ninety seconds on the cheapest phone in Bangladesh. There's a working prototype at the end — I'll show you the link. ---</p></aside>
+  <div class="body"><p><b>সতর্ক · Shotorko</b> <b>Stop the scam. Not the call.</b> Bangla-first voice safety · any phone · no app store GP FutureMakers 2026 · Concept Pitch Round Live prototype · abukawser.xyz</p>
+<p><i>[the home screen of the deployed prototype, full height, right]</i></p></div>
+  <aside class="notes"><b>Speaker note · 15s</b><p>Shotorko means <i>be alert</i>. One sentence: a phone scam only works for about ninety seconds, and this is built to win those ninety seconds on the cheapest phone in the room. Everything you will see screenshotted in this deck is a real capture of a working prototype, and you can open it yourself at the end. ---</p></aside>
 </section>
 <section class="slide" data-n="2" aria-label="Slide 2">
-  <header><span class="no">2<i>/ 10</i></span><h2>The problem is not ignorance. It is timing.</h2><span class="over">doesn't fit</span><span class="timing">35s</span></header>
-  <div class="body"><p><b>The script is always the same.</b> "আমি থানার ওসি" — your son was caught with yaba. Pay 30,000 taka now. Don't tell anyone.</p>
-<p><b>Why it works</b></p>
-<ul><li>Fear arrives before verification is possible</li><li>The victim is told to stay silent, so no one can correct them</li><li>Money moves through an agent shop or USSD in under five minutes</li><li>By the time they tell the family, the number is dead</li></ul>
-<p><b>Who absorbs it:</b> people with the least practice judging a call — older parents in district towns, semi-literate users, and anyone whose Bangla is a dialect no product was built for.</p></div>
-  <aside class="notes"><b>Speaker note · 35s</b><p>Everyone knows these calls happen. What gets missed is the mechanism. The scam is not a knowledge problem — the victim is not stupid. It is a timing problem. Fear, urgency and a demand for secrecy arrive together, and that combination shuts down the part of the brain that checks. Our design starts from one question: where in that ninety-second window can a network actually intervene? ---</p></aside>
+  <header><span class="no">2<i>/ 10</i></span><h2>The problem: fear, urgency, secrecy</h2><span class="over">doesn't fit</span><span class="timing">30s</span></header>
+  <div class="body"><p><b>ভয় · তাড়া · একা</b> — Fear. Urgency. Secrecy.</p>
+<p>"আমি থানার ওসি। আপনার ছেলেকে ধরা হয়েছে। এখনই ৩০,০০০ টাকা পাঠান। কাউকে বলবেন না।" <i>Fake police. Son arrested. Send the money now. Tell no one.</i></p>
+<p>Who absorbs it: older parents in district towns, on the phone they already own</p>
+<p><b>One call</b> — 0:00 ভয় · 0:20 তাড়া · 1:10 একা · 3:00 টাকা পাঠানো · +2 দিন নাম্বার বন্ধ</p>
+<p><b>The gap: nobody defends those three minutes</b></p></div>
+  <aside class="notes"><b>Speaker note · 30s</b><p>Not ignorance — timing. The scam is not a knowledge problem; the victim is not stupid. Fear, urgency and a demand for secrecy arrive together, and that combination shuts down the part of the brain that checks. Look at the clock on the right: three minutes from the first sentence to the money leaving, and two days until the number is dead. Nobody — not the bank, not the family, not the network — is in that three minutes. That window is the product. ---</p></aside>
 </section>
 <section class="slide" data-n="3" aria-label="Slide 3">
-  <header><span class="no">3<i>/ 10</i></span><h2>Why the defences today lose</h2><span class="over">doesn't fit</span><span class="timing">30s</span></header>
-  <div class="body"><table><thead><tr><th>What exists</th><th>Why it fails here</th></tr></thead><tbody><tr><td class="k">Carrier spam filters</td><td>Built for nuisance volume, not for a single persuasive human voice</td></tr><tr><td class="k">Number blocklists</td><td>One new SIM costs ৳200; the script survives, the number doesn't</td></tr><tr><td class="k">Bank / MFS fraud rules</td><td>They see the transfer, never the call that caused it</td></tr><tr><td class="k">Awareness campaigns</td><td>They teach a list of phrases; scammers reword faster than campaigns print</td></tr><tr><td class="k">Smartphone security apps</td><td>Useless on the Tk 800 button phone that is most at risk</td></tr></tbody></table>
-<p><b>The gap:</b> nobody intervenes <b>between</b> the call and the money, in Bangla, on the phone the victim actually owns.</p></div>
-  <aside class="notes"><b>Speaker note · 30s</b><p>Each of these is a real control and each has a reason it doesn't reach this case. The important one: the bank sees a transaction, the operator sees a call, and no one sees the moment where a person is being frightened into pressing buttons. That moment is the product. Also note the last row — the handset most exposed to this is the one no app can protect. ---</p></aside>
+  <header><span class="no">3<i>/ 10</i></span><h2>Every defence answers a different crime</h2><span class="over">doesn't fit</span><span class="timing">25s</span></header>
+  <div class="body"><table class="plain"><tbody><tr><td class="k">Carrier spam filters</td><td>built for volume, not for one persuasive voice <b>×</b></td></tr><tr><td class="k">Number blocklists</td><td>a fresh SIM costs Tk 200 <b>×</b></td></tr><tr><td class="k">Bank and MFS rules</td><td>they see the transfer, never the call <b>×</b></td></tr><tr><td class="k">Awareness campaigns</td><td>the script rewords faster than the poster prints <b>×</b></td></tr><tr><td class="k">Smartphone security apps</td><td>the target phone is a Tk 800 button phone <b>×</b></td></tr></tbody></table>
+<p><b>Missing: a defender inside the call, in Bangla</b></p></div>
+  <aside class="notes"><b>Speaker note · 25s</b><p>Each of these is a real control, and each has a specific reason it misses this case. The important asymmetry: the bank sees a transaction and the operator sees a call, and nobody sees the moment a person is being frightened into pressing buttons. And note the last row — the handset most exposed is the one no app can protect, which is why an app company cannot solve this and an operator can. ---</p></aside>
 </section>
 <section class="slide" data-n="4" aria-label="Slide 4">
-  <header><span class="no">4<i>/ 10</i></span><h2>What Shotorko does</h2><span class="over">doesn't fit</span><span class="timing">40s</span></header>
-  <div class="body"><p><b>Four moments, one continuous defence.</b></p>
-<p><b>১. Before the call</b> — one Bangla sentence plays in the network, <i>before the phone rings</i>. No app, no install, works on a button phone. <b>২. During the call</b> — on-device listening understands intent. Nothing is recorded, nothing leaves the handset. <b>৩. থামুন — the pause</b> — at the moment money or an OTP is about to move, one question appears, with exactly two buttons. <b>৪. After</b> — the victim speaks what happened in Bangla; Shotorko writes a complaint that can actually be filed, and the report joins a Scam Radar that clusters numbers into networks.</p>
-<p>Plus two layers around the person: <b>আপনজন</b> — a family alert set up in two minutes by QR — and the <b>agent shop</b>, where the shopkeeper gets a warning and one question to ask.</p></div>
-  <aside class="notes"><b>Speaker note · 40s</b><p>That's the whole product. The pre-call and network pieces are Grameenphone-native, which is why this belongs to an operator rather than to an app company. The pause is the heart, and I'll show it live in a moment. The after-piece matters for a different reason: today a victim's story never becomes a usable police or fraud-cell record, so the network never learns. Shotorko turns one spoken sentence into three filings. ---</p></aside>
+  <header><span class="no">4<i>/ 10</i></span><h2>The market the money is in</h2><span class="over">doesn't fit</span><span class="timing">30s</span></header>
+  <div class="body"><p><b>The money is already digital.</b></p>
+<p>MOBILE FINANCIAL SERVICES — BANGLADESH BANK, JULY 2026 · SUBSCRIBERS — BTRC, AUGUST 2026</p>
+<table class="plain"><tbody><tr><td class="k"><b>Tk 2.17T</b> MFS volume</td><td><b>Tk 182.7B</b> e-money float</td><td><b>258.7M</b> MFS accounts</td><td><b>191.09M</b> mobile SIMs</td><td><b>87.20M</b> Grameenphone · 45.6% share</td></tr></tbody></table>
+<p><i>[button-phone screen]</i> this phone too — 1.03 billion MFS transactions in one month — 130.2M MFS accounts are rural — <b>68M subscribers are still outside 4G — so the defence cannot live in the cloud</b></p>
+<p><b>The buyer is not the victim:</b> a parent loses the money, Grameenphone loses the trust</p></div>
+  <aside class="notes"><b>Speaker note · 30s</b><p>This is the surface we are selling into, and it is published, not estimated. Bangladesh Bank recorded 1.03 billion mobile-financial-services transactions worth 2.17 trillion taka in July alone, on 258.7 million accounts — and more than half of those accounts are rural. BTRC counts 191 million mobile subscribers, 87.2 million of them Grameenphone. The business line at the bottom is the one to remember: the person who loses the money is not the person who buys the protection. Grameenphone buys it because 182.7 billion taka of e-money float is trust, and trust is the product. ---</p></aside>
 </section>
 <section class="slide" data-n="5" aria-label="Slide 5">
-  <header><span class="no">5<i>/ 10</i></span><h2>থামুন: the pause, live</h2><span class="over">doesn't fit</span><span class="timing">45s</span></header>
-  <div class="body"><h3>থামুন</h3>
-<p><b>কেউ কি ফোনে ভয় দেখাচ্ছে বা তাড়াতাড়ি করতে বলছে?</b> <i>Is someone on the phone scaring you or rushing you?</i></p>
-<p><b>[ আসল কিনা যাচাই করুন ]</b> — calls 999 or the official helpline <b>[ পরিবারকে ফোন দিন ]</b> — calls the trusted family member</p>
-<p><i>আমি জানি, পাঠিয়ে দিন — respected, and reported to the radar</i></p>
-<p><b>Shotorko never blocks. The user always keeps the last button.</b></p>
-<figure><img src="../dev/shots/thamun.png" alt="The pause on the deployed prototype, captured from abukawser.xyz"><figcaption>The pause on the deployed prototype, captured from abukawser.xyz</figcaption></figure></div>
-  <aside class="notes"><b>Speaker note · 45s</b><p>This is the screen. Notice what it does <i>not</i> do. It does not block the call. It does not say 'you are being scammed' — we may be wrong, and when we're wrong we must not have cost someone a real transaction. It asks one question that a frightened person can answer honestly, and gives two exits, both of which are a phone call to a human. And there is a third button: 'I know, send it anyway' — which is honoured, and which teaches the model. On a feature phone the same pause is a voice prompt with two keys. ---</p></aside>
+  <header><span class="no">5<i>/ 10</i></span><h2>Four moments, one defence</h2><span class="over">doesn't fit</span><span class="timing">35s</span></header>
+  <div class="body"><p><b>Four moments. One defence.</b>   <i>[captured from the live prototype]</i></p>
+<p><i>[precall]</i> ১ কলের আগে — before the call <i>[during]</i> ২ কলের ভেতরে — during the call <i>[thamun]</i> ৩ থামুন — the pause <i>[after]</i> ৪ রিপোর্ট — after</p>
+<p><b>Two of the four need no smartphone at all.</b> They happen in the network.</p></div>
+  <aside class="notes"><b>Speaker note · 35s</b><p>One continuous defence, four moments. Before the call, one Bangla sentence plays in the network before the phone rings — no app, no install, no smartphone. During the call, the handset understands intent and nothing is recorded. At the moment money or a code is about to move, the pause. And after, a spoken Bangla story becomes a complaint that can actually be filed, which feeds a radar that clusters numbers into the networks behind them. Two of those four need no software on the handset at all — that is the reach argument, and it is the reason the pilot can protect a button phone on day one. ---</p></aside>
 </section>
 <section class="slide" data-n="6" aria-label="Slide 6">
-  <header><span class="no">6<i>/ 10</i></span><h2>The AI: intent, not a word list</h2><span class="over">doesn't fit</span><span class="timing">45s</span></header>
-  <div class="body"><p><b>A blocklist cannot win.</b> Scammers reword; a blocklist chases.</p>
-<p>The model reads <b>eight signals</b> and <b>the situation around them</b>: <code>authority · leverage · urgency · secrecy · credential · payment · reward · install</code> × <code>unknown caller · call in progress · first-time receiver · unusual amount · late night</code></p>
-<p><b>The same words, different risk</b></p>
-<table class="plain"><tbody><tr><td class="k">"টাকাটা পাঠিয়ে দিও" from a saved contact at noon</td><td>quiet</td></tr><tr><td class="k">"টাকাটা পাঠিয়ে দিও, কাউকে বলো না" from a new number mid-call</td><td><b>pause</b></td></tr></tbody></table>
-<p><b>Decided on-device, in Bangla, Banglish and dialect spelling.</b> Small enough to run on a cheap Android handset. No audio stored, no audio uploaded. A hosted model handles only the generative part — turning a spoken story into a written complaint.</p>
-<p><b>Prototype evidence:</b> 69 backend checks pass offline · 5 reworded scam families all classified · 10 benign sentences, <b>0 false pauses</b> in friendly context and 1 with every hostile flag forced on · threshold 50/100, and the pause additionally requires consent <i>and</i> an actual ask.</p>
-<figure><img src="../dev/shots/console.png" alt="The free-play console with a real verdict in it"><figcaption>The free-play console with a real verdict in it</figcaption></figure></div>
-  <aside class="notes"><b>Speaker note · 45s</b><p>The technical claim I want you to test is this: the classifier does not look for the word 'OTP'. It looks for pressure — someone claiming authority, someone mentioning your child, someone rushing you, someone telling you to stay quiet, and then someone asking for money or a code. Any one of those is normal conversation. The combination is the signature, and rewording doesn't escape it because the signals are semantic. The reason it has to be on-device is not privacy alone — it's that a rural handset on 2G cannot round-trip to a cloud model inside the pause window. The prototype on the last slide runs this real classifier in your browser. ---</p></aside>
+  <header><span class="no">6<i>/ 10</i></span><h2>থামুন: the pause</h2><span class="over">doesn't fit</span><span class="timing">40s</span></header>
+  <div class="body"><p><b>থামুন</b> — One question. Three buttons.</p>
+<p>[ যাচাই করুন ] we dial the verification number for you [ পরিবারকে ফোন ] the family you already saved, one tap [ আমি জানি ] the user decides — and it is still reported</p>
+<p><b>Warn. Never block.</b> Wrong: one screen.  Right: Tk 30,000.</p>
+<p><i>[the থামুন screen full height — live capture, risk 100/100]</i></p></div>
+  <aside class="notes"><b>Speaker note · 40s</b><p>This is the screen, and it is a live capture — that call scored risk 100 out of 100 on the on-device engine and was labelled fake police. Notice what it does not do. It does not block the call. It does not claim you are being scammed, because we may be wrong. It asks one question a frightened person can answer honestly, and offers three exits: verify, call family, or send it anyway — and <i>anyway</i> is honoured, and it still teaches the model. On a feature phone the same pause is a voice prompt with two keys. Warn, never block, because a wrong warning costs one screen and a right one keeps 30,000 taka. ---</p></aside>
 </section>
 <section class="slide" data-n="7" aria-label="Slide 7">
-  <header><span class="no">7<i>/ 10</i></span><h2>Why Grameenphone can build what an app company cannot</h2><span class="over">doesn't fit</span><span class="timing">35s</span></header>
-  <div class="body"><p><b>The moat is the network.</b></p>
-<table><thead><tr><th>Capability</th><th>Where it lives</th></tr></thead><tbody><tr><td class="k">Play a Bangla warning <b>before the ring</b></td><td>Network announcement injection — no handset permission needed</td></tr><tr><td class="k">Warn on a <b>Tk 800 button phone</b></td><td>Happens in the network, so the device is irrelevant</td></tr><tr><td class="k">Caller reputation at launch</td><td>GP's own call records: new SIM, fan-out pattern, report history</td></tr><tr><td class="k">Stop the <i>forwarding</i> scam</td><td>USSD gating on <code>*21</code> — GP-side, not app-side</td></tr><tr><td class="k">The agent-shop checkpoint</td><td>Inside the MFS agent app GP already operates</td></tr><tr><td class="k">Close the loop</td><td>GP fraud cell already receives these complaints</td></tr></tbody></table>
-<p><b>Honest engineering constraints we designed around:</b> Android cannot read USSD responses, so the on-device trigger is an AccessibilityService over the dialer and payment apps — or, stronger, operator-side gating. Live-call Bangla recognition on the handset is the hardest single piece in the plan and is where we'd start the R&amp;D clock.</p></div>
-  <aside class="notes"><b>Speaker note · 35s</b><p>An app company can only protect the smartphone it was told to protect. Grameenphone sits where the call, the SIM, the USSD session and the agent network all already are. That's why the same product reaches a feature phone and a smartphone without asking anyone to install anything. We've also listed what we can't do — because the honest version of this plan is stronger, and the constraints are all solvable inside the operator. ---</p></aside>
+  <header><span class="no">7<i>/ 10</i></span><h2>The AI: intent, not a word list</h2><span class="over">doesn't fit</span><span class="timing">40s</span></header>
+  <div class="body"><p><b>Intent, not a word list.</b></p>
+<p>EIGHT SIGNALS — <code>authority · leverage · urgency · secrecy · credential · payment · reward · install</code> × THE SITUATION AROUND THEM — <code>unknown caller · call in progress · first receiver · unusual amount · late night</code></p>
+<p><b>risk ≥ 50  +  an actual ask  =  থামুন</b></p>
+<p>One signal is normal conversation. A mother asking for money is not a scam. The combination is.</p>
+<p>THE SAME SENTENCE, JUDGED LIVE <i>[verdict capture: risk 95/100, five signals in Bangla]</i> <b>0 of 10</b> ordinary sentences paused · <b>4 of 5</b> reworded scripts paused · <b>69</b> backend checks pass offline</p>
+<p><b>On the handset. No cloud call, no per-call bill.</b></p></div>
+  <aside class="notes"><b>Speaker note · 40s</b><p>The claim you should test: the classifier does not look for the word OTP. It looks for pressure — authority claimed, a child in trouble, urgency, a demand for silence — and then an ask. Any one of those is normal conversation; the combination is the signature, and rewording does not escape it because the signals are semantic. Two gates sit on top: the situation multiplies the score, and nothing fires without an actual ask. I measured rather than hoped — ten ordinary sentences in friendly context produce zero pauses; five reworded scam scripts produce four. The reason it must run on the handset is not only privacy: 68 million subscribers are not on 4G, and a rural handset cannot round-trip to a cloud model inside a three-minute window. ---</p></aside>
 </section>
 <section class="slide" data-n="8" aria-label="Slide 8">
-  <header><span class="no">8<i>/ 10</i></span><h2>Impact, and how it scales</h2><span class="over">doesn't fit</span><span class="timing">35s</span></header>
-  <div class="body"><p><b>Direct impact</b></p>
-<ul><li>Money saved stays with the person least able to lose it — a 30,000 taka loss is a year, not a number</li><li>Every intervened call becomes a structured report instead of a family argument</li><li>Trust in digital finance rises, which is GP's own MFS float</li></ul>
-<p><b>Prototype dashboard (DEMO DATA — simulated, not a field trial)</b> 10,000 protected users · 1,284 scam attempts · 796 stopped · <b>62% interruption rate</b> 412 pauses fired · 168 family alerts · 97 agent-shop warnings · <b>41s average pause</b> 31 false alarms, counted on purpose — "ঠিক ছিল" feedback on every warning</p>
-<p><b>Scale path</b></p>
-<ol><li>GP-only pilot: reputation + pre-call announcement + radar, one division, 90 days</li><li>Android app for the on-device pause where handsets allow it</li><li>Any operator via a shared report format — the fraud scripts are national, not per-network</li><li>Public channel: police 999 and BTRC get the clustered network view, not raw complaints</li></ol></div>
-  <aside class="notes"><b>Speaker note · 35s</b><p>I want to be precise about that dashboard: it's the prototype's own demo data, not results from users. The number I'd defend is the 41-second average pause — because that's not a revenue metric, it's the measurement of whether we interrupted the fear long enough for a second human to enter the conversation. And false alarms are counted deliberately. A safety product that doesn't measure its own wrongness will be switched off within a month. ---</p></aside>
+  <header><span class="no">8<i>/ 10</i></span><h2>Business model</h2><span class="over">doesn't fit</span><span class="timing">40s</span></header>
+  <div class="body"><p><b>Who pays, and why they keep paying.</b></p>
+<p>WHO PAYS <b>Subscriber</b> · Tk 20 a month, opt-in → WHO BILLS <b>Grameenphone</b> · on the phone bill, as a pack → WHO BUILDS <b>Shotorko</b> · model, engine, report standard</p>
+<p><b>Revenue</b> — Tk 20 × 1% of GP's 87.20M base = Tk 209M in year one <b>Cost avoided</b> — fraud refunds · hotline minutes · churn after a publicised loss <b>Later</b> — scam-network intelligence, licensed to MFS operators, 999 and BTRC</p>
+<p>PROOF THAT PEOPLE PAY FOR THIS — Truecaller: 4M+ paying subscribers, 0.75% of free users convert (Mar 2026) — Verizon Call Filter Plus: USD 3.99 a month — and it only blocks numbers</p>
+<p><b>Margin:</b> the classifier runs on the handset, so a warning is not a cloud bill</p></div>
+  <aside class="notes"><b>Speaker note · 40s</b><p>The subscriber pays 20 taka a month, Grameenphone bills it as an ordinary value-added pack, and we supply the model, the engine and the report standard. Year one at one percent attach on GP's base is 209 million taka — small money for an operator, which is honest, and the bigger line is cost avoided: fraud refunds, contact-centre minutes, and the churn that follows a publicised loss in a wallet holding 182.7 billion taka of float. One percent is not a hope: Truecaller converts 0.75 percent of its free base into paid subscribers, and Verizon sells the weaker version of this product — caller blocking — at four dollars a month. Our margin is structural: inference runs on the handset, so serving a warning costs no cloud call. ---</p></aside>
 </section>
 <section class="slide" data-n="9" aria-label="Slide 9">
-  <header><span class="no">9<i>/ 10</i></span><h2>What we need, and the first 90 days</h2><span class="over">doesn't fit</span><span class="timing">25s</span></header>
-  <div class="body"><p><b>Weeks 1–4 — prove the classifier on real language</b> Collect 2,000 real scam call recordings with consent from GP's fraud cell + police complaints. Fine-tune the small Bangla intent model. Publish a false-positive rate, not just a recall.</p>
-<p><b>Weeks 5–8 — network slice, one district</b> Caller reputation + pre-call Bangla announcement + a 999 helpline handoff. Feature-phone path only, so the pilot reaches the actual at-risk group. Target: 5,000 users, opt-in.</p>
-<p><b>Weeks 9–12 — measure, then decide</b> Interruption rate, money preserved, false-alarm rate, complaint-to-filing conversion.</p>
-<p><b>What we're asking GP for</b></p>
-<ol><li>Access to anonymised fraud-call CDR patterns and complaint text for training</li><li>A network-side announcement test slot and one USSD gating experiment</li><li>Introductions to the GP fraud cell and one MFS agent-network region</li><li>A pilot district and 90 days</li></ol></div>
-  <aside class="notes"><b>Speaker note · 25s</b><p>This is deliberately narrow. The first four weeks are not building a product, they're getting permission to be honest about the model — we cannot claim a Bangla scam classifier without real Bangla scam speech, and that data sits in GP's fraud cell. If the classifier's false-positive rate is bad after week four, the right decision is to ship the pre-call warning and the radar alone, which still need no handset at all. ---</p></aside>
+  <header><span class="no">9<i>/ 10</i></span><h2>Market size and go-to-market</h2><span class="over">doesn't fit</span><span class="timing">30s</span></header>
+  <div class="body"><p><b>TAM · SAM · SOM</b></p>
+<table class="plain"><tbody><tr><td class="k"><b>Tk 45.9B</b> TAM · every mobile subscriber — 191.09M × Tk 20 × 12, calculated</td><td><b>Tk 20.9B</b> SAM · Grameenphone's base — 87.20M × Tk 20 × 12, calculated</td><td><b>Tk 209M</b> SOM · year one — 1% attach, Truecaller converts 0.75%</td></tr></tbody></table>
+<p>GO-TO-MARKET <b>Phase 1 · 0–6 months</b> — one district, 5,000 opt-in, GP fraud-cell audio, the network warning first <b>Phase 2 · 6–18 months</b> — nationwide add-on pack, MFS agent shops, 999 and fraud-cell handoff <b>Phase 3 · 18 months+</b> — a shared report standard, other operators, licensed to MFS and BTRC</p>
+<p>Denominators are BTRC and Bangladesh Bank; the Tk 20 price and 1% attach are our assumptions. <b>Entry wedge:</b> the pre-call network warning reaches every handset GP already serves — no install, no upgrade</p></div>
+  <aside class="notes"><b>Speaker note · 30s</b><p>The sizing is arithmetic you can redo on a napkin: 191 million subscribers at 20 taka a month is 45.9 billion taka, GP's own base is 20.9 billion, and a one percent attach is 209 million in year one. I want to be explicit that the price and the attach rate are our assumptions — no Bangladeshi willingness-to-pay survey covers this category, and I will not pretend one does. The sequencing matters more than the number: phase one is the pre-call network warning, because it needs no handset software, no upgrade and no app store, so it reaches all 87 million subscribers on the day it switches on. ---</p></aside>
 </section>
 <section class="slide" data-n="10" aria-label="Slide 10">
-  <header><span class="no">10<i>/ 10</i></span><h2>Try it on your phone</h2><span class="over">doesn't fit</span><span class="timing">25s</span></header>
-  <div class="body"><h3>সতর্ক থাকুন। পরিবারকে জানান।</h3>
-<p><i>Stay alert. Tell the family.</i></p>
-<p><b>Live prototype — no login, no install, works on a phone</b> <b>QR →</b> <code>https://abukawser.xyz</code></p>
-<figure><img src="qr-abukawser.png" alt="QR to the live prototype"><figcaption>QR to the live prototype</figcaption></figure>
-<p>Nine screens, the whole journey: pre-call warning, live call listening, the থামুন pause, the family circle, the agent checkpoint, spoken report → filed complaint, and the Scam Radar.</p>
-<p>On the site, press <b>"▶ Play the story"</b> — it runs the whole journey in under a minute. Then open <b>"নিজে যাচাই"</b> and type any scam line you've ever received, in Bangla or in Banglish. Two classifiers answer: the <b>on-device</b> one, which needs no network at all and is what ships first, and — flip <b>"Live agent"</b> — a hosted one making a real model call.</p></div>
-  <aside class="notes"><b>Speaker note · 25s</b><p>Everything you saw on the pause screen is running in that page. The on-device engine answers with no network whatsoever, and that is the version phase one ships. Flip the <b>Live agent</b> switch and the same screen makes a real hosted model call instead: on the থামুন transcript it came back risk 95, five intent signals, ভুয়া পুলিশ, and it paused; on family talk and a recharge SMS it came back zero and stayed quiet. The number reputations and the radar are demo data, and the page says so on every screen. Nothing in the classifier is a mock — type into it. Thank you. --- ---</p></aside>
+  <header><span class="no">10<i>/ 10</i></span><h2>Impact, the ask, and live proof</h2><span class="over">doesn't fit</span><span class="timing">25s</span></header>
+  <div class="body"><p><b>সতর্ক থাকুন।</b> — Stay alert. Tell the family.</p>
+<p>WHAT CHANGES IF THIS WORKS — Tk 30,000 stays with the person least able to lose it — one filed report instead of one family argument — trust in digital money stays with Grameenphone</p>
+<p>WHAT WE ASK GP FOR — 1 fraud-call audio and CDR patterns, anonymised · 2 one network announcement slot · 3 one USSD gating test on *21 · 4 one pilot district, 90 days</p>
+<p><b>[QR]</b> <b>abukawser.xyz</b> — no login, no install, works on a phone</p>
+<p>On the site: <b>Play the story</b> runs the whole intervention in under a minute; <b>নিজে যাচাই</b> takes a scam line you were actually sent. Reputations and radar records are demo data, and the page says so on every screen.</p></div>
+  <aside class="notes"><b>Speaker note · 25s</b><p>Three things change: the money stays with the person least able to lose it, a victim's spoken story becomes a filed record instead of a family argument, and trust in digital finance stays inside Grameenphone. To find out whether that is real I need four things — the fraud cell's recordings, one announcement slot, one USSD gating test, and a district for ninety days. Everything you saw screenshotted is live on this address right now. The on-device engine answers with no network at all, and flip to Live agent to watch the same sentence judged by a hosted model. Thank you. ---</p></aside>
+</section>
+<section class="slide apx" data-n="A1" aria-label="Slide A1">
+  <header><span class="no">A1<i>/ A3</i></span><h2>Sources</h2><span class="over">doesn't fit</span><span class="timing">15s</span></header>
+  <div class="body"><p><b>Every number, and where it came from.</b></p>
+<table class="plain"><tbody><tr><td class="k">Tk 2.17T · Tk 182.7B · 258.7M</td><td>Bangladesh Bank, MFS statistics: transactions table 9, accounts table 8, July 2026 — bb.org.bd/econdata/fin_digitalfstat</td></tr><tr><td class="k">191.09M · 87.20M</td><td>BTRC, mobile subscribers by operator, August 2026 — btrc.gov.bd/pages/static-pages/6922dda8933eb65569e15c3d</td></tr><tr><td class="k">122.71M on 4G · 69.18% internet</td><td>BTRC, teledensity and penetration, August 2026 — btrc.gov.bd/pages/static-pages/teledensity-penetration-8ecc0e-6922e009933eb65569e2524c</td></tr><tr><td class="k">4M+ subscribers · 0.75% conversion</td><td>Truecaller AB, 10 March 2026 — news.cision.com/truecaller-ab/r/truecaller-surpasses-4-million-premium-subscribers,c4318816</td></tr><tr><td class="k">USD 3.99 a month</td><td>Verizon Call Filter Plus — verizon.com/support/call-filter-faqs</td></tr><tr><td class="k">USD 3.5B lost to imposter scams</td><td>US Federal Trade Commission, 15 June 2026 — ftc.gov/news-events/news/press-releases/2026/06/ftc-data-show-people-reported-losing-3-point-5-billion-imposter-scams-2025</td></tr><tr><td class="k">Tk 45.9B · 20.9B · 209M</td><td>calculated by us from the tables above; the Tk 20 price and 1% attach rate are our own assumptions</td></tr></tbody></table>
+<p><b>What we will not claim:</b> there is no published Bangladeshi national fraud-loss figure, and we did not invent one</p></div>
+  <aside class="notes"><b>Speaker note · 15s · only if a number is challenged</b><p>Two primary sources carry every market number in this deck: Bangladesh Bank's MFS statistics for July 2026, and BTRC's subscriber and penetration tables for August 2026. The behavioural benchmarks are Truecaller's published subscriber count and conversion rate, and Verizon's published price. The FTC figure is there to show the category, not the market — it is American. Anything marked calculated is arithmetic on those tables, and the price and attach rate are ours, which is the first thing I would want tested in a pilot. ---</p></aside>
+</section>
+<section class="slide apx" data-n="A2" aria-label="Slide A2">
+  <header><span class="no">A2<i>/ A3</i></span><h2>Unit economics</h2><span class="over">doesn't fit</span><span class="timing">20s</span></header>
+  <div class="body"><p><b>Sensitivity, and what it costs to serve.</b></p>
+<p>GP BASE OF 87.20M SUBSCRIBERS, AT Tk 20 A MONTH 0.5% ▓ Tk 105M/yr · <b>1% ▓▓ Tk 209M/yr</b> <i>base case</i> · 2% ▓▓▓ Tk 419M/yr · 3% ▓▓▓▓▓ Tk 628M/yr</p>
+<p>COST TO SERVE — the classifier runs on the handset — no inference per call — the cloud is used only to write the complaint letter — no app-store royalty: the product is a network service</p>
+<p>WHY GP WOULD BUY IT — retention: safety is a reason to stay on the network — Tk 182.7B of e-money float depends on trust — fewer fraud tickets in the contact centre — consumer-protection leadership with BTRC</p></div>
+  <aside class="notes"><b>Speaker note · 20s</b><p>The revenue case is linear in attach rate, so the only assumption worth arguing about is that rate: half a percent is 105 million taka, three percent is 628 million. Cost does not scale with it, because the classifier is inference the handset already pays for; the cloud is only in the complaint letter, which the user starts. That is why the margin survives a hundredfold in volume — the thing that breaks at scale is trust in the alert, not the infrastructure. ---</p></aside>
+</section>
+<section class="slide apx" data-n="A3" aria-label="Slide A3">
+  <header><span class="no">A3<i>/ A3</i></span><h2>Q&amp;A preparation</h2><span class="over">doesn't fit</span></header>
+  <div class="body"><p><b>If the three minutes go to the market.</b></p>
+<table class="plain"><tbody><tr><td class="k">How big is it?</td><td>Tk 45.9B TAM · Tk 20.9B on GP's base · calculated</td></tr><tr><td class="k">Who pays?</td><td>the subscriber, billed by Grameenphone as a Tk 20 pack</td></tr><tr><td class="k">Will anyone pay?</td><td>Truecaller converts 0.75%; we assume 1% of an opt-in base</td></tr><tr><td class="k">Why not just an app?</td><td>the phone at risk is a Tk 800 button phone — it needs the network</td></tr><tr><td class="k">Why Grameenphone?</td><td>warn before the ring, and reputation without a cold start</td></tr><tr><td class="k">Cost to serve?</td><td>on-device inference: a warning costs no cloud call</td></tr><tr><td class="k">Past GP?</td><td>a shared report standard, then operators, MFS and BTRC</td></tr><tr><td class="k">What would stop us?</td><td>if four weeks of real Bangla speech cannot hold the false-positive rate</td></tr></tbody></table></div>
+  <aside class="notes"><b>Speaker note · reference slide — not presented</b><p>This page is the answer sheet. The rule for the three minutes: the direct answer first, then the honest limit, then what would change the answer. Never quote the demo dashboard as if it were a field trial, and never quote the hosted battery while Google's free quota is throttling — the on-device numbers are the ones on the slide because they are the ones that re-run identically anywhere. --- ---</p></aside>
 </section>
 </div>
 <div class="bar">
   <button data-step="-1">←</button><button data-step="1">→</button>
-  <button data-go="1" title="Title">1</button><button data-go="2" title="The problem is not ignorance. It is timing.">2</button><button data-go="3" title="Why the defences today lose">3</button><button data-go="4" title="What Shotorko does">4</button><button data-go="5" title="থামুন: the pause, live">5</button><button data-go="6" title="The AI: intent, not a word list">6</button><button data-go="7" title="Why Grameenphone can build what an app company cannot">7</button><button data-go="8" title="Impact, and how it scales">8</button><button data-go="9" title="What we need, and the first 90 days">9</button><button data-go="10" title="Try it on your phone">10</button>
+  <button data-go="0" title="Title">1</button><button data-go="1" title="The problem: fear, urgency, secrecy">2</button><button data-go="2" title="Every defence answers a different crime">3</button><button data-go="3" title="The market the money is in">4</button><button data-go="4" title="Four moments, one defence">5</button><button data-go="5" title="থামুন: the pause">6</button><button data-go="6" title="The AI: intent, not a word list">7</button><button data-go="7" title="Business model">8</button><button data-go="8" title="Market size and go-to-market">9</button><button data-go="9" title="Impact, the ask, and live proof">10</button><button data-go="10" title="Sources">A1</button><button data-go="11" title="Unit economics">A2</button><button data-go="12" title="Q&amp;A preparation">A3</button>
   <span class="sp"></span>
-  <span class="hint">← → space · <b>N</b> notes · <b>F</b> fullscreen · Ctrl-P prints 10 pages</span>
-  <span class="total">notes 330s ≈ 5.5 min</span>
+  <span class="hint">← → space · <b>N</b> notes · <b>F</b> fullscreen · Ctrl-P prints 13 pages</span>
+  <span class="total">notes 310s ≈ 5.2 min</span>
   <button id="toggle-notes">notes</button>
 </div>
 <script>
@@ -206,7 +225,7 @@ addEventListener("keydown",e=>{
 document.querySelector(".bar").addEventListener("click",e=>{
   const b=e.target.closest("button"); if(!b) return;
   if(b.dataset.step) show(i+Number(b.dataset.step));
-  else if(b.dataset.go) show(Number(b.dataset.go)-1);
+  else if(b.dataset.go!==undefined) show(Number(b.dataset.go));
   else if(b.id==="toggle-notes") document.body.classList.toggle("notes");
 });
 document.getElementById("deck").addEventListener("click",e=>{

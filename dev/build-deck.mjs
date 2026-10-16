@@ -2,12 +2,13 @@
  *
  *   node dev/build-deck.mjs
  *
- * pitch/deck-and-qa.md is the only source of truth: this reads its ten slides and
- * their speaker notes and writes pitch/deck.html. Edit the markdown, re-run, the
- * preview is current. Nothing is duplicated, so nothing can disagree with the copy
- * the team is laying out in PowerPoint.
+ * pitch/deck-and-qa.md is the only source of truth: this reads its ten projector
+ * slides, its three appendix slides and their speaker notes and writes
+ * pitch/deck.html. Edit the markdown, re-run, the preview is current. Nothing is
+ * duplicated, so nothing can disagree with the copy the team is laying out in
+ * PowerPoint.
  *
- * The output opens in a browser, is driven by arrow keys, and prints to a 10-page
+ * The output opens in a browser, is driven by arrow keys, and prints to a 13-page
  * PDF (Ctrl-P, landscape) for the upload. */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -28,24 +29,26 @@ let mode = "";
 
 for (let i = 0; i < lines.length; i++) {
   const line = lines[i];
-  const head = /^## Slide (\d+) — (.+)$/.exec(line);
+  const head = /^## (?:Slide (\d+)|Appendix (A\d)) — (.+)$/.exec(line);
   if (head) {
-    current = { n: Number(head[1]), title: head[2], body: [], note: [], noteSeconds: 0 };
+    const n = head[1] ? Number(head[1]) : head[2];
+    current = { n, title: head[3], body: [], note: [], noteSeconds: 0 };
     slides.push(current);
     mode = "";
     continue;
   }
   if (!current) continue;
 
-  /* past slide 10 the file becomes the Q&A bank and the layout notes */
+  /* past the last appendix slide the file becomes the Q&A bank and the layout notes */
   if (/^# /.test(line)) { current = null; mode = ""; continue; }
 
   const onSlide = /^\*\*On slide\*\*/.test(line);
-  const noteHead = /^\*\*Speaker note(?: \((\d+)s\))?\*\*/.exec(line);
+  const noteHead = /^\*\*Speaker note(?: \(([^)]*)\))?\*\*/.exec(line);
   if (onSlide) { mode = "body"; continue; }
   if (noteHead) {
     mode = "note";
-    current.noteSeconds = Number(noteHead[1] || 0);
+    current.noteWhen = (noteHead[1] || "").replace(/^\d+s,?\s*/, "").trim();
+    current.noteSeconds = Number(/^\d+/.exec(noteHead[1] || "")?.[0] || 0);
     continue;
   }
   if (mode === "body" && /^>/.test(line)) current.body.push(line.replace(/^>\s?/, ""));
@@ -53,7 +56,11 @@ for (let i = 0; i < lines.length; i++) {
   else if (mode === "note" && line.trim()) current.note.push(line.trim().replace(/^"|"$/g, ""));
 }
 
-slides.sort((a, b) => a.n - b.n);
+const order = n => (typeof n === "number" ? n : 100 + Number(String(n).slice(1)));
+slides.sort((a, b) => order(a.n) - order(b.n));
+const MAIN = slides.filter(s => typeof s.n === "number").length;
+const APX = "A" + (slides.length - MAIN);
+for (const s of slides) s.total = typeof s.n === "number" ? String(MAIN) : APX;
 const missing = slides.filter(s => !s.note.length).map(s => s.n);
 if (missing.length) console.log("  note: no speaker note on slide(s) " + missing.join(", "));
 
@@ -129,18 +136,18 @@ function renderBody(rows) {
 }
 
 /* ── assemble ───────────────────────────────────────────────────── */
-const totalNote = slides.reduce((s, x) => s + x.noteSeconds, 0);
+const totalNote = slides.filter(s => typeof s.n === "number").reduce((s, x) => s + x.noteSeconds, 0);
 const deck = slides.map(s => {
   const secs = s.noteSeconds;
   const chip = secs ? `<span class="timing">${secs}s</span>` : "";
-  return `<section class="slide" data-n="${s.n}" aria-label="Slide ${s.n}">
-  <header><span class="no">${s.n}<i>/ ${slides.length}</i></span><h2>${inline(s.title)}</h2><span class="over">doesn't fit</span>${chip}</header>
+  return `<section class="slide${typeof s.n === "number" ? "" : " apx"}" data-n="${s.n}" aria-label="Slide ${s.n}">
+  <header><span class="no">${s.n}<i>/ ${s.total}</i></span><h2>${inline(s.title)}</h2><span class="over">doesn't fit</span>${chip}</header>
   <div class="body">${renderBody(s.body)}</div>
-  <aside class="notes"><b>Speaker note · ${secs || "?"}s</b><p>${inline(s.note.join(" "))}</p></aside>
+  <aside class="notes"><b>Speaker note${secs ? " · " + secs + "s" : ""}${s.noteWhen ? " · " + s.noteWhen : ""}</b><p>${inline(s.note.join(" "))}</p></aside>
 </section>`;
 }).join("\n");
 
-const tabs = slides.map(s => `<button data-go="${s.n}" title="${esc(s.title)}">${s.n}</button>`).join("");
+const tabs = slides.map((s, k) => `<button data-go="${k}" title="${esc(s.title)}">${s.n}</button>`).join("");
 
 const html = `<!doctype html>
 <html lang="bn">
@@ -172,6 +179,7 @@ body{display:flex;flex-direction:column;overflow:hidden}
   color:var(--dim);text-transform:uppercase;line-height:1.3}
 .slide header .no{color:var(--amber);font-weight:800;font-size:clamp(15px,1.5vw,20px)}
 .slide header .no i{color:var(--dim);font-style:normal;font-weight:400;font-size:.7em}
+.slide.apx header h2::before{content:"appendix · ";color:var(--amber);font-weight:800}
 .slide header .timing{margin-left:auto;color:var(--dim);font-size:13px;border:1px solid var(--line);border-radius:99px;padding:2px 10px}
 .slide header .over{display:none;margin-left:auto;color:#241703;background:var(--red);border-radius:99px;
   padding:2px 10px;font-size:12px;font-weight:700}
@@ -231,7 +239,7 @@ ${deck}
   <button data-step="-1">←</button><button data-step="1">→</button>
   ${tabs}
   <span class="sp"></span>
-  <span class="hint">← → space · <b>N</b> notes · <b>F</b> fullscreen · Ctrl-P prints 10 pages</span>
+  <span class="hint">← → space · <b>N</b> notes · <b>F</b> fullscreen · Ctrl-P prints ${slides.length} pages</span>
   <span class="total">notes ${totalNote}s ≈ ${Math.round(totalNote / 60 * 10) / 10} min</span>
   <button id="toggle-notes">notes</button>
 </div>
@@ -267,7 +275,7 @@ addEventListener("keydown",e=>{
 document.querySelector(".bar").addEventListener("click",e=>{
   const b=e.target.closest("button"); if(!b) return;
   if(b.dataset.step) show(i+Number(b.dataset.step));
-  else if(b.dataset.go) show(Number(b.dataset.go)-1);
+  else if(b.dataset.go!==undefined) show(Number(b.dataset.go));
   else if(b.id==="toggle-notes") document.body.classList.toggle("notes");
 });
 document.getElementById("deck").addEventListener("click",e=>{
@@ -284,6 +292,7 @@ const secs = slides.map(s => `${s.n}:${s.noteSeconds || "?"}`).join(" ");
 console.log(`${slides.length} slides → pitch/deck.html`);
 console.log(`  note seconds  ${secs}  = ${totalNote}s total`);
 for (const s of slides) {
+  if (typeof s.n !== "number") continue;   /* an appendix page is a reference sheet, not a projector slide */
   const words = s.body.join(" ").split(/\s+/).filter(Boolean).length;
   if (words > 150) console.log(`  ⚠ slide ${s.n} carries ${words} words — a projector reads about 90`);
 }

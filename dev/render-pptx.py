@@ -23,6 +23,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from fontTools.ttLib import TTFont
 from pptx import Presentation
+from pptx.enum.dml import MSO_FILL_TYPE
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "pitch" / "Shotorko-GP-FutureMakers-2026.pptx"
@@ -120,7 +121,7 @@ for si, slide in enumerate(prs.slides, 1):
     base = (13, 17, 23)
     try:
         fill = slide.background.fill
-        if fill is not None and str(fill.type) == "MSO_FILL_TYPE.SOLID":
+        if fill is not None and fill.type == MSO_FILL_TYPE.SOLID:
             base = rgb(fill.fore_color.rgb)
     except Exception:
         pass
@@ -150,7 +151,7 @@ for si, slide in enumerate(prs.slides, 1):
             fill_c = line_c = None
             line_w = 0
             try:
-                if str(sh.fill.type) == "MSO_FILL_TYPE.SOLID":
+                if sh.fill.type == MSO_FILL_TYPE.SOLID:
                     fill_c = rgb(sh.fill.fore_color.rgb)
             except Exception:
                 pass

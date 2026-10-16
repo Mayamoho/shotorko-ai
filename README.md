@@ -257,26 +257,56 @@ runs return HTTP 429; those are a quota artifact and must never be quoted as a c
 ## Pitch kit
 
 ```bash
-node dev/build-deck.mjs        # pitch/deck-and-qa.md -> pitch/deck.html (browsable)
-python3 dev/build-pptx.py      # -> pitch/Shotorko-GP-FutureMakers-2026.pptx (10 slides)
+node dev/build-deck.mjs        # pitch/deck-and-qa.md -> pitch/deck.html (browsable, 13 pages)
+python3 dev/build-pptx.py      # -> pitch/Shotorko-GP-FutureMakers-2026.pptx (10 slides + 3 appendix)
 python3 dev/render-pptx.py     # re-renders the .pptx with PIL to verify layout
 ```
 
-`pitch/deck-and-qa.md` is the single source of truth for the pitch: ten slides, their speaker notes
-and the Q&A preparation. `dev/build-deck.mjs` generates the browsable HTML entirely from it.
-`dev/build-pptx.py` reads each slide's speaker note from it and carries it into the notes pane
-together with the criterion that slide scores; its **on-slide** lines are a hand-condensed projector
-cut of the same text, because a slide is read from the back of a room while somebody else is talking.
+`pitch/deck-and-qa.md` is the single source of truth: ten projector slides, three appendix slides,
+their speaker notes and a 23-question Q&A bank. `dev/build-deck.mjs` generates the browsable HTML
+entirely from it. `dev/build-pptx.py` reads each speaker note from it and carries it into the notes
+pane together with the criterion that slide scores and the Q&A number to reach for; its **on-slide**
+lines are a hand-condensed projector cut of the same text.
 
-`dev/render-pptx.py` exists because PowerPoint is not available here: it redraws the actual .pptx and
-reports off-slide text, box overruns, missing glyph coverage and colliding copy.
+The rule the deck is written to is **a slide carries keywords, the speaker note carries the
+sentence**. Business and technology are balanced on purpose: 4, 8 and 9 are the market, the business
+model and the sizing; 5, 6 and 7 are the product and the AI; 1, 2, 3 and 10 are the problem, the
+competition and the close. Appendix A1 is every source, A2 is the sensitivity analysis behind the
+revenue case, A3 is the one-line answer sheet for a market-focused Q&A.
 
-The .pptx embeds images captured from the deployed prototype, not mockups. The story video is **not**
-embedded in the .pptx — slide 10 points judges at `▶ Play the story` on the live site.
+`dev/render-pptx.py` exists because PowerPoint is not available here: it redraws the actual .pptx at
+128 px/inch with metrically close fonts and reports off-slide shapes, text that will not fit its box,
+words too long to break and colliding copy. A clean report is not proof the deck is finished; a dirty
+report is proof that it is not.
+
+The .pptx embeds images captured from the deployed prototype, not mockups — `dev/shoot.mjs` against
+`https://abukawser.xyz`. The story video is **not** embedded in the .pptx: slide 10 is a QR code that
+points judges at `▶ Play the story` on the live site.
 
 Bengali is a complex script: PowerPoint must be told the typeface through `a:cs` (and `a:ea`),
 because `font.name` alone writes only `a:latin` and Bengali silently falls back. `build-pptx.py`
 handles that.
+
+## Market figures and where they come from
+
+Every number a judge can challenge, with its primary source. Nothing in the deck is estimated, and
+the two figures that *are* ours — the Tk 20 price and the 1% attach rate — are labelled as
+assumptions on the slides that use them.
+
+| Figure | Source |
+|---|---|
+| Tk 2.17T MFS value · Tk 182.7B e-money float · 258.7M accounts · 1.03bn transactions · 130.2M rural | [Bangladesh Bank, MFS statistics — transactions table 9, accounts table 8, July 2026](https://www.bb.org.bd/econdata/fin_digitalfstat) (the tables are linked from that page as `tab9.pdf` / `tab8.pdf`; bb.org.bd serves a JavaScript challenge to non-browser clients, so open it in a browser) |
+| 191.09M mobile subscribers · 87.20M Grameenphone (45.6%) | [BTRC, subscriber data by operator, August 2026](https://btrc.gov.bd/pages/static-pages/6922dda8933eb65569e15c3d) |
+| 122.71M on 4G · 69.18% mobile-internet penetration | [BTRC, teledensity and penetration, August 2026](https://btrc.gov.bd/pages/static-pages/teledensity-penetration-8ecc0e-6922e009933eb65569e2524c) |
+| 4M+ premium subscribers · 0.75% free→paid conversion | [Truecaller AB, 10 March 2026](https://news.cision.com/truecaller-ab/r/truecaller-surpasses-4-million-premium-subscribers,c4318816) |
+| USD 3.99 a month for caller-line safety | [Verizon Call Filter Plus](https://www.verizon.com/support/call-filter-faqs/) |
+| USD 3.5B reported lost to imposter scams in 2025 — **US, cited as a shape, not a size** | [US Federal Trade Commission, 15 June 2026](https://www.ftc.gov/news-events/news/press-releases/2026/06/ftc-data-show-people-reported-losing-3-point-5-billion-imposter-scams-2025) (the canonical page is Akamai-gated to non-browser clients; the Wayback snapshot of that URL resolves) |
+| Tk 45.9B TAM · Tk 20.9B SAM · Tk 209M SOM | **calculated**: subscribers × Tk 20 × 12, then 1% attach — arithmetic on the rows above |
+
+**What is deliberately not claimed:** there is no published Bangladeshi national fraud-loss figure,
+so the deck prints none. BTRC publishes complaint counts dominated by general nuisance, not scam
+losses. Appendix A1 ends with that sentence on purpose — a safety pitch that labels its own gaps is
+easier to trust than one that rounds them away.
 
 ## Deploying
 

@@ -356,10 +356,10 @@ table(["File", "Lines", "What it is"], [
      "the backend and the automatic fall back to on-device"),
     ("web/assets/data.js", "86", "Demo only: the 6-turn scam call, 5 reworded scripts, the family, 16 reports, "
      "3 scam networks, 2 agent shops, the monthly stats"),
-    ("web/assets/app.css", "—", "The dark theme, phone frames, switches, meters, print behaviour"),
+    ("web/assets/app.css", "255", "The dark theme, phone frames, switches, meters, print behaviour"),
     ("api/app/[...path].ts", "381", "Vercel Edge backend: Gemini, labels, the pause veto, cache, budget, "
      "timeouts, error codes"),
-    ("functions/*.ts,.mjs", "372", "The same contract on Qoder Cloud Agents — handler, signals table, agent "
+    ("functions/*.ts + cloud-agents.mjs", "372 + 269", "The same contract on Qoder Cloud Agents — handler, signals table, agent "
      "client"),
     ("vercel.json / .vercelignore", "—", "Static deploy of web/ with no build, plus the rewrite; dev/, pitch/ "
      "and functions/ never ship, and .env* is excluded"),
@@ -388,9 +388,16 @@ table(["Command", "Checks", "Needs network?", "A failure means"], [
      "end to end"),
     ("python3 dev/render-pptx.py", "layout", "No", "Something on a slide is off-page, overflowing or colliding"),
 ], widths=[2.15, 0.85, 1.1, 2.9])
-para("All six offline checks pass as of today: engine ALL CHECKS PASSED, backend 69/69, functions 24/24, "
-     "battery benign 0/10 calm · 1/10 hostile · scams 4/5, deck layout clean over 216 text blocks, and "
+para("Every check that backs a number on a slide passes offline, and offline is what slide 7 quotes: engine "
+     "ALL CHECKS PASSED, backend 69/69, functions 24/24, the same 15-sentence sweep giving benign 0/10 calm · "
+     "1/10 hostile · scams 4/5, deck layout clean over 216 text blocks, and "
      "https://abukawser.xyz/functions/v1/app/health answering with the live model.", size=10)
+para("The one thing that has never completed is the identical sweep against the hosted engine. Re-run this "
+     "night it paused 0/10 calm and 1/10 hostile, then Google's daily free quota cut it off with HTTP 429 "
+     "before any scam control ran. That is a quota artifact and never a classifier result — which is exactly "
+     "why the slides quote the offline engine, the one that re-runs identically with no network at all. If a "
+     "judge asks for hosted evidence, use the single observed console call on slide 7 (risk 95/100, engine "
+     "live) and describe it as one observed call.", size=10, color=GREY)
 
 # ───────────────────────────────────────────────── numbers
 h1("5. Every number you may be asked to defend")
@@ -579,10 +586,14 @@ bullets([
     ("The live prototype still says \u201CTk 800 button phone\u201D in the pre-call screen copy, while the "
      "slides now say about Tk 1,000. A judge reading both will notice. One line in "
      "web/assets/app.js and a redeploy fixes it — say the words on the slides, not the ones on the page."),
-    ("Google's free Gemini quota may already be exhausted tomorrow. If it is, /health still answers, the "
-     "Live agent toggle still appears, and every call falls back to the on-device engine with a small "
-     "fallback note. The deck's numbers are the on-device ones precisely because they re-run identically "
-     "anywhere. Do not present a throttled result as a classifier result."),
+    ("Google's free Gemini quota was already throttling last night — the hosted sweep stopped at HTTP 429 "
+     "before the scam controls ran, so the hosted battery has never completed. Re-checked at 02:20 on 17 Oct: the "
+     "hosted path answers (one analyze call, risk 95, engine live), so it may well work on stage — but a free "
+     "daily quota can "
+     "empty mid-demo. If it does: /health still answers, the Live agent toggle still appears, and every call "
+     "falls back to the on-device engine with a small note. That is the behaviour the deck claims, not a failure. Say 'the hosted model is "
+     "behind a free daily quota, so what you are watching is the on-device engine' — never a throttled run as "
+     "a classifier result."),
     ("Venue Wi-Fi is the other risk. Play the story once on the venue network before you are on stage. "
      "If it fails, the recorded video (Shotorko_Video_Pitch.mp4) shows the same intervention with no "
      "network at all, and the on-device engine works offline by design."),
@@ -593,27 +604,32 @@ bullets([
     ("Re-check BTRC on the morning of 17 October — the subscriber tables are re-published monthly, and a "
      "judge who works at an operator will know."),
     ("Nothing in the repo contains a secret: .env* is git-ignored and excluded from the deploy, and "
-     "QODER_PAT is a platform Secret only. Keep it that way if you push tonight."),
+     "QODER_PAT is a platform Secret only — true of the pushed state as of this build."),
 ])
 
 # ───────────────────────────────────────────────── checklist
 h1("10. Pre-flight, in order")
-table(["#", "Do this", "Time"], [
-    ("1", "python3 dev/render-pptx.py on the submitted .pptx — the last line must read "
+ROWS = [
+    ("Run no hosted check before you present. dev/false-positive-battery.mjs <url> and dev/live-probe.mjs "
+     "spend the same free daily quota the Live agent toggle depends on. Leave the engine on On-device until "
+     "you are on stage, and switch to Live agent once, early", "—"),
+    ("python3 dev/render-pptx.py on the submitted .pptx — the last line must read "
           "\u201Cclean over 216 text blocks\u201D", "2 min"),
-    ("2", "Open the .pptx and flip through all 13 pages once; check the fonts render Bangla on your machine",
+    ("Open the .pptx and flip through all 13 pages once; check the fonts render Bangla on your machine",
      "3 min"),
-    ("3", "node dev/engine-check.js && node dev/backend-check.mjs — both must pass", "1 min"),
-    ("4", "Open abukawser.xyz on your phone, press ⟲ Reset then ▶ Play the story, end to end", "2 min"),
-    ("5", "Type a scam line you were actually sent into নিজে যাচাই and read the result aloud — this is the "
+    ("node dev/engine-check.js && node dev/backend-check.mjs — both must pass", "1 min"),
+    ("Open abukawser.xyz on your phone, press ⟲ Reset then ▶ Play the story, end to end", "2 min"),
+    ("Type a scam line you were actually sent into নিজে যাচাই and read the result aloud — this is the "
           "demo you will repeat on stage", "2 min"),
-    ("6", "Scan the QR from a phone on the venue network", "30 sec"),
-    ("7", "Confirm Shotorko_Video_Pitch.mp4 plays on the presentation laptop, muted", "1 min"),
-    ("8", "Say the open line and the close line out loud, then the four asks on slide 10 in order", "3 min"),
-    ("9", "Re-read section 9 above — the honest limits are your strongest material, not your weakest", "5 min"),
-    ("10", "The deck is already submitted — treat that .pptx as frozen. If you change anything tonight, "
+    ("Scan the QR from a phone on the venue network", "30 sec"),
+    ("Confirm Shotorko_Video_Pitch.mp4 plays on the presentation laptop, muted", "1 min"),
+    ("Say the open line and the close line out loud, then the four asks on slide 10 in order", "3 min"),
+    ("Re-read section 9 above — the honest limits are your strongest material, not your weakest", "5 min"),
+    ("The deck is already submitted — treat that .pptx as frozen. If you change anything before the pitch, "
      "run python3 dev/build-brief.py after it, so this document still matches what is on screen", "1 min"),
-], widths=[0.35, 5.6, 1.0])
+]
+table(["#", "Do this", "Time"], [(str(n), t, w) for n, (t, w) in enumerate(ROWS, 1)],
+      widths=[0.35, 5.6, 1.0])
 
 para("Generated by dev/build-brief.py from pitch/Shotorko-GP-FutureMakers-2026.pptx and "
      "pitch/deck-and-qa.md, so it matches the deck that was actually built.",

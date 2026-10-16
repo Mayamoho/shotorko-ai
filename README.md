@@ -264,9 +264,10 @@ python3 dev/render-pptx.py     # re-renders the .pptx with PIL to verify layout
 
 `pitch/deck-and-qa.md` is the single source of truth: ten projector slides, three appendix slides,
 their speaker notes and a 23-question Q&A bank. `dev/build-deck.mjs` generates the browsable HTML
-entirely from it. `dev/build-pptx.py` reads each speaker note from it and carries it into the notes
-pane together with the criterion that slide scores and the Q&A number to reach for; its **on-slide**
-lines are a hand-condensed projector cut of the same text.
+entirely from it. The .pptx deliberately ships with **no speaker notes** — nothing in a notes pane
+is spoken text, so nothing can leak into a PDF export or onto a projector. `dev/build-pptx.py` writes
+only the hand-condensed projector cut; the sentences and the Q&A number to reach for stay in the
+markdown, for the presenter to study separately.
 
 The rule the deck is written to is **a slide carries keywords, the speaker note carries the
 sentence**. Business and technology are balanced on purpose: 4, 8 and 9 are the market, the business

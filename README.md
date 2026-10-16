@@ -295,7 +295,7 @@ assumptions on the slides that use them.
 
 | Figure | Source |
 |---|---|
-| Tk 2.17T MFS value · Tk 182.7B e-money float · 258.7M accounts · 1.03bn transactions · 130.2M rural | [Bangladesh Bank, MFS statistics — transactions table 9, accounts table 8, July 2026](https://www.bb.org.bd/econdata/fin_digitalfstat) (the tables are linked from that page as `tab9.pdf` / `tab8.pdf`; bb.org.bd serves a JavaScript challenge to non-browser clients, so open it in a browser) |
+| Tk 2.17T MFS value · Tk 182.7B e-money float · 258.7M accounts · 1.03bn transactions · 130.2M rural | [Bangladesh Bank, MFS statistics — transactions table 9, accounts table 8, 2026](https://www.bb.org.bd/econdata/fin_digitalfstat) (the tables are linked from that page as `tab9.pdf` / `tab8.pdf`; bb.org.bd serves a JavaScript challenge to non-browser clients, so open it in a browser) |
 | 191.09M mobile subscribers · 87.20M Grameenphone (45.6%) | [BTRC, subscriber data by operator, August 2026](https://btrc.gov.bd/pages/static-pages/6922dda8933eb65569e15c3d) |
 | 122.71M on 4G · 69.18% mobile-internet penetration | [BTRC, teledensity and penetration, August 2026](https://btrc.gov.bd/pages/static-pages/teledensity-penetration-8ecc0e-6922e009933eb65569e2524c) |
 | 4M+ premium subscribers · 0.75% free→paid conversion | [Truecaller AB, 10 March 2026](https://news.cision.com/truecaller-ab/r/truecaller-surpasses-4-million-premium-subscribers,c4318816) |

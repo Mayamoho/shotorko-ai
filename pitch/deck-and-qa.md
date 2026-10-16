@@ -67,10 +67,10 @@ on-device engine only, no hosted classifier.
 **On slide**
 
 > | Carrier spam filters | built for volume, not for one persuasive voice **×** |
-> | Number blocklists | a fresh SIM costs Tk 200 **×** |
+> | Number blocklists | a new SIM can cost as little as Tk 200 **×** |
 > | Bank and MFS rules | they see the transfer, never the call **×** |
 > | Awareness campaigns | the script rewords faster than the poster prints **×** |
-> | Smartphone security apps | the target phone is a Tk 800 button phone **×** |
+> | Smartphone security apps | the phone at risk costs about Tk 1,000 **×** |
 >
 > **Missing: a defender inside the call, in Bangla**
 
@@ -90,14 +90,14 @@ on-device engine only, no hosted classifier.
 > | **Tk 2.17T** MFS volume | **Tk 182.7B** e-money float | **258.7M** MFS accounts | **191.09M** mobile SIMs | **87.20M** Grameenphone · 45.6% share |
 >
 > *[button-phone screen]* this phone too
-> — 1.03 billion MFS transactions in one month
+> — over a billion MFS transactions in a month
 > — 130.2M MFS accounts are rural
 > — **68M subscribers are still outside 4G — so the defence cannot live in the cloud**
 >
 > **The buyer is not the victim:** a parent loses the money, Grameenphone loses the trust
 
 **Speaker note (30s)**
-"This is the surface we are selling into, and it is published, not estimated. Bangladesh Bank recorded 1.03 billion mobile-financial-services transactions worth 2.17 trillion taka in July alone, on 258.7 million accounts — and more than half of those accounts are rural. BTRC counts 191 million mobile subscribers, 87.2 million of them Grameenphone. The business line at the bottom is the one to remember: the person who loses the money is not the person who buys the protection. Grameenphone buys it because 182.7 billion taka of e-money float is trust, and trust is the product."
+"This is the surface we are selling into, and it is published, not estimated. Bangladesh Bank's MFS tables record over a billion transactions in a single month, worth 2.17 trillion taka, on 258.7 million registered accounts — and more than half of those accounts are rural. BTRC counts 191 million mobile subscribers, 87.2 million of them Grameenphone. The business line at the bottom is the one to remember: the person who loses the money is not the person who buys the protection. Grameenphone buys it because 182.7 billion taka of e-money float is trust, and trust is the product."
 
 ---
 
@@ -236,9 +236,9 @@ on-device engine only, no hosted classifier.
 
 > **Every number, and where it came from.**
 >
-> | Tk 2.17T · Tk 182.7B · 258.7M | Bangladesh Bank, MFS statistics: transactions table 9, accounts table 8, July 2026 — bb.org.bd/econdata/fin_digitalfstat |
+> | Tk 2.17T · Tk 182.7B · 258.7M | Bangladesh Bank, MFS statistics: transactions table 9, accounts table 8, 2026 — bb.org.bd/econdata/fin_digitalfstat |
 > | 191.09M · 87.20M | BTRC, mobile subscribers by operator, August 2026 — btrc.gov.bd/pages/static-pages/6922dda8933eb65569e15c3d |
-> | 122.71M on 4G · 69.18% internet | BTRC, teledensity and penetration, August 2026 — btrc.gov.bd/pages/static-pages/teledensity-penetration-8ecc0e-6922e009933eb65569e2524c |
+> | 122.71M on 4G · 69.18% mobile-internet penetration | BTRC, teledensity and penetration, August 2026 — btrc.gov.bd/pages/static-pages/teledensity-penetration-8ecc0e-6922e009933eb65569e2524c |
 > | 4M+ subscribers · 0.75% conversion | Truecaller AB, 10 March 2026 — news.cision.com/truecaller-ab/r/truecaller-surpasses-4-million-premium-subscribers,c4318816 |
 > | USD 3.99 a month | Verizon Call Filter Plus — verizon.com/support/call-filter-faqs |
 > | USD 3.5B lost to imposter scams | US Federal Trade Commission, 15 June 2026 — ftc.gov/news-events/news/press-releases/2026/06/ftc-data-show-people-reported-losing-3-point-5-billion-imposter-scams-2025 |
@@ -276,20 +276,20 @@ on-device engine only, no hosted classifier.
 
 ---
 
-## Appendix A3 — Q&A preparation
+## Appendix A3 — Backup: Judge Q&A
 
 **On slide**
 
-> **If the three minutes go to the market.**
+> **What each question is really asking.**
 >
-> | How big is it? | Tk 45.9B TAM · Tk 20.9B on GP's base · calculated |
-> | Who pays? | the subscriber, billed by Grameenphone as a Tk 20 pack |
-> | Will anyone pay? | Truecaller converts 0.75%; we assume 1% of an opt-in base |
-> | Why not just an app? | the phone at risk is a Tk 800 button phone — it needs the network |
-> | Why Grameenphone? | warn before the ring, and reputation without a cold start |
-> | Cost to serve? | on-device inference: a warning costs no cloud call |
-> | Past GP? | a shared report standard, then operators, MFS and BTRC |
-> | What would stop us? | if four weeks of real Bangla speech cannot hold the false-positive rate |
+> | Revenue opportunity? | Tk 45.9B all operators · Tk 20.9B on GP's base — gross, before cost |
+> | Tk 20 and 1% — on what basis? | Truecaller 0.75% conversion, global; our 1% is a target only |
+> | No-app phones — how? | GP signals before the ring; the Bangla listening is on the handset |
+> | Prototype vs production? | this demo uses a hosted model; production runs on the handset |
+> | What still costs money? | USSD and airtime, complaint handling, updates, support — unmeasured |
+> | GP nets more than it spends? | unknown today — the 90-day pilot exists to show it |
+> | Do people pay for this? | evidence users pay for safety, not proof of this price point |
+> | What would change the plan? | real Bangla speech that cannot hold the false-positive rate |
 
 **Speaker note (reference slide — not presented)**
 "This page is the answer sheet. The rule for the three minutes: the direct answer first, then the honest limit, then what would change the answer. Never quote the demo dashboard as if it were a field trial, and never quote the hosted battery while Google's free quota is throttling — the on-device numbers are the ones on the slide because they are the ones that re-run identically anywhere."

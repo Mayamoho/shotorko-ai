@@ -225,7 +225,7 @@ body.notes .slide.on .notes{display:block}
   .slide header .no{color:#b26a00}
   .body{color:#111}.body b,.body td.k{color:#000}.body code{background:#f2f2f2;color:#8a5200;border-color:#ddd}
   .body th{color:#666}.body td,.body th{border-color:#ddd}
-  .notes{display:block !important;color:#444;border-color:#bbb}
+  .notes{display:none !important}
   .slide header .over{display:none !important}
   .body figure img{max-height:60mm}
 }

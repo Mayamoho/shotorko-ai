@@ -319,64 +319,6 @@ def notes(slide, note, criterion, if_asked):
         f"{note}\n\n— Scoring: {criterion}\n— If asked: {if_asked}"
     )
 
-
-# ── speaker notes come from the markdown, not from here ──────
-
-def load_notes():
-    src = MD.read_text(encoding="utf-8")
-    out = {}
-    pat = re.compile(r"^## (?:(Slide (\d+))|(Appendix (A\d))) — .+$", re.M)
-    for m in pat.finditer(src):
-        key = int(m.group(2)) if m.group(2) else m.group(4)
-        note = re.search(r"^\*\*Speaker note(?: \(([^)]*)\))?\*\*\n(.*?)(?=^\*\*|^\n---|\Z)",
-                         src[m.end():], re.M | re.S)
-        if note:
-            body = re.sub(r"\s+", " ", note.group(2)).replace('"', "").strip()
-            when = re.sub(r"^\d+s,?\s*", "", (note.group(1) or "").strip())
-            out[key] = f"[{when}] {body}" if when else body
-    return out
-
-
-NOTES = load_notes()
-
-CRIT = {
-    1: ("Clarity", "the whole promise in three words, and the prototype named on the first screen"),
-    2: ("Depth of problem understanding", "the mechanism of the scam — fear, urgency and silence arriving together — not the fact that scams exist"),
-    3: ("Depth of problem understanding & differentiation", "knowing exactly why each existing control misses this case"),
-    4: ("Impact & market understanding", "the measured size of the money that moves digitally, from primary sources"),
-    5: ("Solution strength", "four moments of one continuous defence, two of which need no handset at all"),
-    6: ("Solution strength & clarity", "the intervention itself, and the restraint inside it"),
-    7: ("AI application & technical rationale", "semantic signals over a word list, and why they must run on the handset"),
-    8: ("Feasibility, scalability & business sense", "who pays, what they pay for, and evidence that people pay for this"),
-    9: ("Market analysis & scalability", "sizing a judge can redo on a napkin, and a go-to-market that is sequenced"),
-    10: ("Clarity & impact", "the claim, the ask and the proof are all on one page the judges can open"),
-    "A1": ("Credibility", "every number traces to a named publication and date, and the gaps are stated out loud"),
-    "A2": ("Feasibility & business sense", "the sensitivity of the revenue case, and the cost structure behind the margin"),
-    "A3": ("Q&A handling", "the market questions taken in advance, answered in one line each"),
-}
-
-ASKED = {
-    1: "Q&A 11 — isn't this a feature? The loop is the product, not the screen.",
-    2: "Q&A 13 — Google and Samsung already do this: they need the right handset and a supported language.",
-    3: "Q&A 6 — can you really inject before the ring? An operator capability, with an honest weaker fallback.",
-    4: "Q&A 14 — how big is this really: Appendix A1 for the denominators, A2 for the attach-rate ladder.",
-    5: "Q&A 5 — what does the model see? Nothing is stored; opt out of call listening and two layers still work.",
-    6: "Q&A 2 — false positives: three gates, and warn-never-block means a wrong answer costs one screen.",
-    7: "Q&A 3 — a scoring function, not a neural net: the contract is the design work, the corpus is the ask.",
-    8: "Q&A 15 — will anyone pay for safety: Truecaller's measured 0.75% conversion, and Verizon's price point.",
-    9: "Q&A 18 and 19 — the growth path past Grameenphone, and the national fraud-loss figure we refuse to invent.",
-    10: "Q&A 23 — what would make us stop: if four weeks of real speech can't hold the false-positive rate, the pause is dropped and the network layer ships alone.",
-    "A1": "Any number a judge challenges — name the publication, the month, and what is calculated rather than published.",
-    "A2": "Q&A 8, 16 and 17 — cost to serve, the price point, and why the on-device engine is a margin argument as well as a coverage one.",
-    "A3": "This slide is the Q&A sheet itself; the full bank is in pitch/deck-and-qa.md.",
-}
-
-
-def add_note(slide, num, extra=""):
-    what, why = CRIT[num]
-    notes(slide, (NOTES.get(num, "") + (" " + extra if extra else "")).strip(), f"{what} — {why}", ASKED[num])
-
-
 # ── the deck ─────────────────────────────────────────────────
 
 prs = Presentation()
@@ -412,7 +354,6 @@ text(s, ML, 5.86, lw, 0.8, [
     para("GP FutureMakers 2026 · Concept Pitch Round", 12.5, TEXT, sa=6),
     para("Live prototype · abukawser.xyz", 13, CALM, bold=True),
 ])
-add_note(s, 1)
 
 # 2 ─────────────────────────────────────────────────────────── The problem
 s = slide_shell(prs, "THE PROBLEM", 2)
@@ -449,21 +390,19 @@ for i, (t, bn_lab, en, col) in enumerate([
     ])
 band(s, 6.3, [("The gap:  ", dict(size=17, color=AMBER, bold=True)),
               ("nobody defends those three minutes", dict(size=17, color=TEXT))])
-add_note(s, 2)
 
 # 3 ─────────────────────────────────────────────────────────── Why controls miss
 s = slide_shell(prs, "PROBLEM DEPTH · COMPETITION", 3)
 title(s, [("Every defence answers a different crime.", dict(size=27, color=TEXT, bold=True))])
 y = rows_table(s, ML, 2.42, CW, [
-    ("Carrier spam filters", "built for volume, not for one persuasive voice"),
-    ("Number blocklists", "a fresh SIM costs Tk 200"),
+    ("Carrier spam filters", "built for volume, rarely for one persuasive voice"),
+    ("Number blocklists", "a new SIM can cost as little as Tk 200"),
     ("Bank and MFS rules", "they see the transfer, never the call"),
     ("Awareness campaigns", "the script rewords faster than the poster prints"),
-    ("Smartphone security apps", "the target phone is a Tk 800 button phone"),
+    ("Smartphone security apps", "the phone at risk costs about Tk 1,000"),
 ], 3.5, size=14.5, row_h=0.62, gap=0.14, size_r=14, mark=True)
 band(s, 6.32, [("Missing:  ", dict(size=18, color=AMBER, bold=True)),
                ("a defender inside the call, in Bangla", dict(size=18, color=TEXT, bold=True))])
-add_note(s, 3)
 
 # 4 ─────────────────────────────────────────────────────────── Money at risk
 s = slide_shell(prs, "THE MARKET THE MONEY IS IN", 4)
@@ -471,9 +410,9 @@ title(s, [("The money is already digital.", dict(size=27, color=TEXT, bold=True)
 kicker(s, ML, 2.3, "MOBILE FINANCIAL SERVICES — BANGLADESH BANK, JULY 2026  ·  SUBSCRIBERS — BTRC, AUGUST 2026")
 cw5, ch5, g5 = (CW - 4 * 0.2) / 5, 1.42, 0.2
 for i, (big, lab, sub, col, bsize) in enumerate([
-    ("Tk 2.17T", "MFS volume", "", ALERT, 27),
-    ("Tk 182.7B", "e-money float", "", ALERT, 24),
-    ("258.7M", "MFS accounts", "", AMBER, 27),
+    ("Tk 2.17T", "MFS value / month", "", ALERT, 27),
+    ("Tk 182.7B", "e-money balance", "", ALERT, 24),
+    ("258.7M", "registered accounts", "", AMBER, 24),
     ("191.09M", "mobile SIMs", "", AMBER, 27),
     ("87.20M", "Grameenphone", "45.6% share", CALM, 27),
 ]):
@@ -485,17 +424,16 @@ text(s, ML - 0.2, 6.1, piw + 0.6, 0.26, [para("this phone too", 10, MUTED, itali
 lx = ML + piw + 0.66
 kicker(s, lx, 4.16, "WHY THAT MATTERS FOR GP", MR - lx)
 for j, (line, bold) in enumerate([
-    ("1.03 billion MFS transactions in one month", False),
-    ("130.2M MFS accounts are rural", False),
+    ("over a billion MFS transactions in a month", False),
+    ("130.2M registered MFS accounts are rural", False),
     ("68M subscribers are still outside 4G — so the defence cannot live in the cloud", True),
 ]):
     text(s, lx, 4.48 + j * 0.5, MR - lx, 0.5, [dash(line, 14.5, TEXT, bold=bold)])
-source(s, 6.14, "Bangladesh Bank MFS statistics (July 2026) · BTRC mobile subscribers (August 2026) · "
+source(s, 6.14, "Bangladesh Bank MFS statistics, Tables 9 and 8 (2026) · BTRC subscribers (Aug 2026) · "
                 "links and what is calculated: Appendix A1", x=lx, w=MR - lx)
 band(s, 6.45, [("The buyer is not the victim:  ", dict(size=14.5, color=AMBER, bold=True)),
                ("a parent loses the money, Grameenphone loses the trust", dict(size=14.5, color=TEXT))],
      h=0.5)
-add_note(s, 4)
 
 # 5 ─────────────────────────────────────────────────────────── Four moments
 s = slide_shell(prs, "THE SOLUTION", 5)
@@ -520,7 +458,6 @@ for i, (shot_name, num, bn_lab, en_lab) in enumerate([
     ])
 band(s, 6.32, [("Two of the four need no smartphone at all.", dict(size=16, color=AMBER, bold=True)),
                ("  They happen in the network.", dict(size=15, color=MUTED))], h=0.52)
-add_note(s, 5)
 
 # 6 ─────────────────────────────────────────────────────────── থামুন
 s = slide_shell(prs, "THE INTERVENTION", 6)
@@ -549,7 +486,6 @@ text(s, ML, 6.36, lw, 0.42, [
               ("      Right:  ", dict(size=15, color=MUTED)),
               *runs_of("Tk 30,000.", 15, CALM, bold=True)]},
 ])
-add_note(s, 6, "On the on-device engine this call scored risk 100/100 and was labelled ভুয়া পুলিশ / মামলা.")
 
 # 7 ─────────────────────────────────────────────────────────── The AI
 s = slide_shell(prs, "AI APPLICATION & TECHNICAL RATIONALE", 7)
@@ -585,15 +521,13 @@ text(s, rc, 2.6 + vh + 0.1, rcw, 0.52, [
 my = 2.6 + vh + 0.72
 for big, lab, col in [("0 of 10", "ordinary sentences paused", CALM),
                       ("4 of 5", "reworded scam scripts paused", AMBER),
-                      ("69", "backend checks pass offline", CALM)]:
+                      ("69", "backend checks, not accuracy", CALM)]:
     text(s, rc, my, 1.5, 0.34, [{"runs": [(big, dict(size=16, color=col, bold=True))]}])
     text(s, rc + 1.55, my, rcw - 1.55, 0.34, [para(lab, 12.5, TEXT)])
     my += 0.4
 text(s, rc, my + 0.14, rcw, 0.5, [
-    para("On the handset. No cloud call, no per-call bill.", 14, AMBER, bold=True, line=1.2)])
-add_note(s, 7, "Any one of those eight signals is normal conversation; the combination is the signature. The hosted "
-               "model carries only the generative part — a spoken story into a filed complaint — and never decides "
-               "the interruption alone.")
+    para("Preliminary: 15 test sentences, no real calls yet. On the handset — no cloud call.",
+         12, AMBER, bold=True, line=1.2)])
 
 # 8 ─────────────────────────────────────────────────────────── Business model
 s = slide_shell(prs, "BUSINESS MODEL", 8)
@@ -623,7 +557,6 @@ text(s, ML, 6.1, CW, 0.32, [dash("Verizon Call Filter Plus: USD 3.99 a month —
 band(s, 6.5, [("Margin:  ", dict(size=14, color=AMBER, bold=True)),
               ("the classifier runs on the handset, so a warning is not a cloud bill",
                dict(size=14, color=TEXT))], h=0.48)
-add_note(s, 8)
 
 # 9 ─────────────────────────────────────────────────────────── Market size & strategy
 s = slide_shell(prs, "MARKET SIZE · GO-TO-MARKET", 9)
@@ -647,7 +580,6 @@ source(s, 5.96, "Denominators: BTRC subscribers (Aug 2026), Bangladesh Bank MFS 
 band(s, 6.36, [("Entry wedge:  ", dict(size=14, color=AMBER, bold=True)),
                ("the pre-call network warning reaches every handset GP already serves — no install, no upgrade",
                 dict(size=14, color=TEXT))], h=0.5)
-add_note(s, 9)
 
 # 10 ────────────────────────────────────────────────────────── Impact, ask, proof
 s = slide_shell(prs, "IMPACT · THE ASK · LIVE PROOF", 10)
@@ -683,7 +615,6 @@ text(s, ML, 6.28, CW, 0.62, [
               *runs_of("নিজে যাচাই takes a scam line you were actually sent.", 12, MUTED)], "line": 1.25, "sa": 4},
     para("Reputations and radar records are demo data, and the page says so on every screen.", 11, AMBER),
 ])
-add_note(s, 10)
 
 # ── appendix ────────────────────────────────────────────────
 
@@ -692,12 +623,12 @@ s = slide_shell(prs, "APPENDIX · SOURCES", "A1", total="A3")
 title(s, [("Every number, and where it came from.", dict(size=26, color=TEXT, bold=True))])
 rows_table(s, ML, 2.3, CW, [
     ("Tk 2.17T · Tk 182.7B · 258.7M",
-     "Bangladesh Bank, MFS statistics: transactions table 9, accounts table 8, July 2026 — "
+     "Bangladesh Bank, MFS statistics: transactions table 9, accounts table 8, 2026 — "
      "bb.org.bd/econdata/fin_digitalfstat"),
     ("191.09M · 87.20M",
      "BTRC, mobile subscribers by operator, August 2026 — "
      "btrc.gov.bd/pages/static-pages/6922dda8933eb65569e15c3d"),
-    ("122.71M on 4G · 69.18% internet",
+    ("122.71M on 4G · 69.18% mobile-internet penetration",
      "BTRC, teledensity and penetration, August 2026 — "
      "btrc.gov.bd/pages/static-pages/teledensity-penetration-8ecc0e-6922e009933eb65569e2524c"),
     ("4M+ subscribers · 0.75% conversion",
@@ -714,12 +645,11 @@ rows_table(s, ML, 2.3, CW, [
 band(s, 6.42, [("What we will not claim:  ", dict(size=14, color=AMBER, bold=True)),
                ("there is no published Bangladeshi national fraud-loss figure, and we did not invent one",
                 dict(size=14, color=TEXT))], h=0.52)
-add_note(s, "A1")
 
 # A2 ───────────────────────────────────────────────────────── Unit economics
 s = slide_shell(prs, "APPENDIX · UNIT ECONOMICS", "A2", total="A3")
-title(s, [("Sensitivity, and what it costs to serve.", dict(size=26, color=TEXT, bold=True))])
-kicker(s, ML, 2.28, "GP BASE OF 87.20M SUBSCRIBERS, AT Tk 20 A MONTH")
+title(s, [("Sensitivity — what revenue could look like.", dict(size=26, color=TEXT, bold=True))])
+kicker(s, ML, 2.28, "GROSS REVENUE POTENTIAL, NOT PROFIT · 87.20M GP BASELINE · Tk 20 ASSUMED PRICE")
 for i, (lab, val, frac, col, note) in enumerate([
     ("0.5%", "Tk 105M", 0.5 / 3, MUTED, ""),
     ("1%", "Tk 209M", 1 / 3, AMBER, "base case"),
@@ -728,15 +658,16 @@ for i, (lab, val, frac, col, note) in enumerate([
 ]):
     hbar(s, ML, 2.62 + i * 0.56, 1.15, 7.6, 0.5, frac, col, lab, val + " / yr", note)
 cy2 = 5.05
-kicker(s, ML, cy2, "COST TO SERVE")
+kicker(s, ML, cy2, "EXPECTED COST ADVANTAGES")
 for j, line in enumerate([
     "the classifier runs on the handset — no inference per call",
     "the cloud is used only to write the complaint letter",
     "no app-store royalty: the product is a network service",
+    "not yet measured: USSD and airtime, support, model updates",
 ]):
     text(s, ML, cy2 + 0.32 + j * 0.34, 5.95, 0.32, [dash(line, 12, TEXT, mark_col=MUTED)])
 rx2 = 6.9
-kicker(s, rx2, cy2, "WHY GP WOULD BUY IT", MR - rx2)
+kicker(s, rx2, cy2, "WHAT GP STANDS TO GAIN — TO BE MEASURED", MR - rx2)
 for j, line in enumerate([
     "retention: safety is a reason to stay on the network",
     "Tk 182.7B of e-money float depends on trust",
@@ -744,24 +675,22 @@ for j, line in enumerate([
     "consumer-protection leadership with BTRC",
 ]):
     text(s, rx2, cy2 + 0.32 + j * 0.34, MR - rx2, 0.32, [dash(line, 12, TEXT, mark_col=CALM)])
-add_note(s, "A2")
 
-# A3 ───────────────────────────────────────────────────────── Q&A sheet
-s = slide_shell(prs, "APPENDIX · Q&A PREPARATION", "A3", total="A3")
-title(s, [("If the three minutes go to the market.", dict(size=26, color=TEXT, bold=True))])
+# A3 ───────────────────────────────────────────────── Backup: judge Q&A
+s = slide_shell(prs, "APPENDIX · BACKUP: JUDGE Q&A", "A3", total="A3")
+title(s, [("What each question is really asking.", dict(size=26, color=TEXT, bold=True))])
 rows_table(s, ML, 2.3, CW, [
-    ("How big is it?", "Tk 45.9B TAM · Tk 20.9B on GP's base · calculated"),
-    ("Who pays?", "the subscriber, billed by Grameenphone as a Tk 20 pack"),
-    ("Will anyone pay?", "Truecaller converts 0.75%; we assume 1% of an opt-in base"),
-    ("Why not just an app?", "the phone at risk is a Tk 800 button phone — it needs the network"),
-    ("Why Grameenphone?", "warn before the ring, and reputation without a cold start"),
-    ("Cost to serve?", "on-device inference: a warning costs no cloud call"),
-    ("Past GP?", "a shared report standard, then operators, MFS and BTRC"),
-    ("What would stop us?", "if four weeks of real Bangla speech cannot hold the false-positive rate"),
+    ("Revenue opportunity?", "Tk 45.9B all operators · Tk 20.9B on GP's base — gross, before cost"),
+    ("Tk 20 and 1% — on what basis?", "Truecaller 0.75% conversion, global; our 1% is a target only"),
+    ("No-app phones — how?", "GP signals before the ring; the Bangla listening is on the handset"),
+    ("Prototype vs production?", "this demo uses a hosted model; production runs on the handset"),
+    ("What still costs money?", "USSD and airtime, complaint handling, updates, support — unmeasured"),
+    ("GP nets more than it spends?", "unknown today — the 90-day pilot exists to show it"),
+    ("Do people pay for this?", "evidence users pay for safety, not proof of this price point"),
+    ("What would change the plan?", "real Bangla speech that cannot hold the false-positive rate"),
 ], 3.4, size=13.5, row_h=0.48, gap=0.06, size_r=12.5)
-source(s, 6.72, "The full bank of twenty-three questions, with the criterion each one scores, is in "
-                "pitch/deck-and-qa.md and in the notes pane of every slide.", h=0.22)
-add_note(s, "A3")
+source(s, 6.72, "Every figure above traces to Appendix A1. The price and attach rate are our "
+                "assumptions, not surveyed willingness to pay.", h=0.22)
 
 prs.save(str(OUT))
 print(f"wrote {OUT.relative_to(ROOT)} · {len(prs.slides._sldIdLst)} slides")
